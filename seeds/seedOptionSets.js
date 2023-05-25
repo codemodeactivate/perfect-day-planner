@@ -7,8 +7,8 @@ const seedOptionSets = async (numCategories = 10) => {
 
     for (let i = 0; i < numCategories; i++) {
         const optionSets = {
-            category: faker.lorem.words(Math.floor(Math.random() * 3) + 1),
-            perfect_day_id: Math.floor(Math.random() * 10) + 1
+            option1: faker.lorem.words(Math.round(Math.random() * 5) + 1),
+            option2: faker.lorem.words(Math.round(Math.random() * 5) + 1),
         };
         optionSetsData.push(optionSets);
     }

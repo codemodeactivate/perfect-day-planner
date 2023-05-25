@@ -7,16 +7,22 @@ const seedUsers = require('./seedUsers');
 const sequelize = require('../config/connection');
 
 const seedAll = async () => {
+    console.log("Syncing tables...");
     await sequelize.sync({ force: true });
 
+    console.log("Seeding users...");
     await seedUsers();
-    await seedOptionSets();
+
+    console.log("Seeding perfect day...");
     await seedPerfectDay();
+
+    console.log("Seeding option sets...");
+    await seedOptionSets();
+
+    console.log("Seeding selected options...");
     await seedSelectedOptions();
-    await seedUsers();
 
     process.exit(0);
-
 };
 
 seedAll();
