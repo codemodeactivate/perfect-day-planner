@@ -5,21 +5,22 @@ class SelectedOption extends Model {}
 
 SelectedOption.init(
     {
-        SelectedOption: DataTypes.STRING,
+        SelectedOption: DataTypes.STRING, // Fix the column name here
         option_set_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'OptionSets',
+                model: 'option_set',
                 key: 'id'
+            }
         }
+    },
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'selected_option'
     }
-},
-{
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'selectedOption'
-});
+);
 
 module.exports = SelectedOption;
