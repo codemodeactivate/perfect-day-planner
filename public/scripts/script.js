@@ -7,3 +7,4 @@ document.getElementById('login').addEventListener('click', function() {
     // Navigate to login page
     window.location.href = '/login';
 });
+
