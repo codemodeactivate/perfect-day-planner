@@ -4,21 +4,22 @@ const sequelize = require('../config/connection');
 class PerfectDay extends Model {}
 
 PerfectDay.init(
-    {
-        userID: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'users',
-                key: 'id'
-        }
+  {
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
     }
-},
-{
+  },
+  {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'perfectDay'
-});
+    modelName: 'perfect_day'
+  }
+);
 
 module.exports = PerfectDay;
