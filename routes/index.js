@@ -18,6 +18,7 @@ router.use('/users', usersRoutes);
 router.use('/perfectdays', perfectDaysRoutes);
 router.use('/optionsets', optionSetsRoutes);
 router.use('/selectedoptions', selectedOptionsRoutes);
+router.use('/signup', signupRoutes);
 
 //router.use('/signup', signupRoutes);
 
