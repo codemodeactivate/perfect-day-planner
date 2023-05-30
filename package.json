@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "seed": "node seeds/index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "express-session": "^1.17.3",
     "faker": "^5.5.3",
     "mysql2": "^3.3.2",
+    "nodemon": "^2.0.22",
     "sequelize": "^6.31.1"
   }
 }

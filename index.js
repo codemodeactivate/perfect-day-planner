@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./routes');
-const helpers = require('./helpers');
+//const helpers = require('./helpers');
 
 const sequelize = require('./config/connection');
 
@@ -13,7 +13,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ helpers }); 
+const hbs = exphbs.create({
+  defaultLayout: 'main',
+  //helpers: helpers,
+  partialsDir: 'views/partials',
+  layoutsDir: 'views/layouts'
+});
 
 const sess = {
   secret: 'Super secret secret',
