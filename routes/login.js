@@ -4,10 +4,10 @@ const controllers = require('../controllers');
 const withAuth = require('../middleware/auth');
 
 //define controllers
-const renderLogin = controllers.authController.renderLogin;
+const renderLogin = controllers.viewsController.renderLogin;
 const loginHandler = controllers.authController.login;
 
-router.get('/', withAuth, renderLogin);
+router.get('/', renderLogin);
 router.post('/', loginHandler);
 
 

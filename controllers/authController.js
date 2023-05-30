@@ -1,4 +1,4 @@
-controllers/authController.js
+//controllers/authController.js
 const { User } = require('../models');
 
 module.exports = {
