@@ -54,4 +54,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// POST /perfectday/:id/options : This would handle the submission of a new option for the "Perfect Day" with the provided ID.
+
 module.exports = router;

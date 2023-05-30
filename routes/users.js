@@ -53,4 +53,13 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// GET /login : This would show the login page.
+
+// POST /login : This would handle the login form submission.
+
+// GET /signup : This would show the signup page.
+
+// POST /signup : This would handle the signup form submission, log the user in, and redirect to the dashboard.
+
+// POST /logout : This would log the user out.
 module.exports = router;

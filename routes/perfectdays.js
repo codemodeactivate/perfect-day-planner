@@ -1,4 +1,4 @@
-//perfect days routes - sharing, etc. 
+//perfect days routes - sharing, etc.
 const express = require('express');
 const router = express.Router();
 const PerfectDay = require('../models/PerfectDays');
@@ -52,5 +52,13 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
+// GET /perfectday/new : This would show the form to create a new "Perfect Day".
+
+// POST /perfectday : This would handle the submission of the "Perfect Day" form and create a new "Perfect Day".
+
+// GET /perfectday/:id : This would show a specific "Perfect Day" with the provided ID.
+
+// POST /perfectday/:id : This would handle the submission of the choices made by the partner on the "Perfect Day" page.
 
 module.exports = router;
