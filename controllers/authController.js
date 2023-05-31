@@ -81,8 +81,8 @@ module.exports = {
         }
     },
     //logout
-signout-route
-    
+
+
     logout: async (req, res, next) => {
         try {
           if (req.session) {
