@@ -56,19 +56,19 @@ module.exports = {
         }
     },
     //signup
-    signup: async (req, res) => {
-        try {
-            const user = await User.create(req.body);
-            req.session.save(() => {
-                req.session.user_id = user.id;
-                req.session.logged_in = true;
-                const { password, ...userData } = newUser.dataValues;
-                res.redirect('/create-perfect-day');
-            });
-        } catch (err) {
-            res.status(500).json(err);
-        }
-    },
+    // signup: async (req, res) => {
+    //     try {
+    //         const user = await User.create(req.body);
+    //         req.session.save(() => {
+    //             req.session.user_id = user.id;
+    //             req.session.logged_in = true;
+    //             const { password, ...userData } = newUser.dataValues;
+    //             res.redirect('/create-perfect-day');
+    //         });
+    //     } catch (err) {
+    //         res.status(500).json(err);
+    //     }
+    // },
     //login
 
 
