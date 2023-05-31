@@ -111,5 +111,5 @@ module.exports = {
     logout: async (req, res) => {
         // ... your existing logout code
     },
- main
+
 };

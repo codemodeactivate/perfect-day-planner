@@ -7,7 +7,7 @@ document.querySelector(".signup-form").addEventListener("submit", function(event
     // Check if passwords match
     if (password !== confirmPassword) {
         event.preventDefault();
-        alert("Passwords do not match.");
+        //alert("Passwords do not match.");
         return;
     }
 
@@ -15,7 +15,7 @@ document.querySelector(".signup-form").addEventListener("submit", function(event
     const passwordStrength = zxcvbn(password);
     if (passwordStrength.score < 3) {
         event.preventDefault();
-        alert("Password is too weak.");
+        //alert("Password is too weak.");
     }
 
     // Send the form data to the server
@@ -31,14 +31,18 @@ document.querySelector(".signup-form").addEventListener("submit", function(event
             confirmPassword: confirmPassword
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            document.getElementById('error-message').textContent = data.error;
-        } else {
-            window.location.href = "/dashboard";
+    .then(response => {
+        if (!response.ok) {
+            throw response;
         }
+        return response.json(); //we only get here if there is no error
     })
-    .catch(error => console.error('Error:', error));
-
-});
+    .then(data => {
+        window.location.href = "/dashboard";
+    })
+    .catch(err => {
+        err.json().then(errorMessage => {
+            document.getElementById('error-message').textContent = errorMessage.message;
+        })
+    });
+    });
