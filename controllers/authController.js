@@ -7,7 +7,7 @@ module.exports = {
         try {
             const user = await User.findOne({
                 where: {
-                    username: req.body.email,
+                    email: req.body.email,
                 },
             });
             if (!user) {
@@ -16,21 +16,23 @@ module.exports = {
             }
             const validPassword = await user.checkPassword(req.body.password);
             if (!validPassword) {
-                res.status(400).json({ message: "No user account found!" });
+                res.status(400).json({ message: "Incorrect password!" });
                 return;
             }
             req.session.save(() => {
                 req.session.user_id = user.id;
                 req.session.logged_in = true;
-                res.redirect("/create-perfect-day");
+                //send as json, redirect handled on the client side because of http stuff i don't understand
+                res.json({ message: "Login successful!" });
             });
         } catch (err) {
             res.status(500).json(err);
         }
     },
-    renderLogin: async (req, res) => {
-        // ... your existing renderLogin code
-    },
+
+    // renderLogin: async (req, res) => {
+    //     // ... your existing renderLogin code
+    // },
     //signup
     signup: async (req, res, next) => {
         try {
@@ -70,6 +72,8 @@ module.exports = {
             req.session.logged_in = true;
 
             const { password, ...userData } = newUser.dataValues;
+            //send positive response to trigger redirect
+            return res.status(200).json({ message: "User created successfully." });
             // Redirect the user to the dashboard
             return res.redirect("/dashboard");
         } catch (err) {
