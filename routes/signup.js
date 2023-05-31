@@ -6,6 +6,8 @@ const controllers = require('../controllers');
 const renderSignup = controllers.viewsController.renderSignup;
 const signupHandler = controllers.authController.signup;
 
+
+
 // Define routes
 router.get('/', renderSignup);
 router.post('/', signupHandler);

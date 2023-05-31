@@ -35,6 +35,7 @@ module.exports = {
     //signup
     signup: async (req, res, next) => {
         try {
+            console.log(req.body);
           // Create a new user in the database
           const newUser = await User.create({
             username: req.body.username,
@@ -43,10 +44,10 @@ module.exports = {
           });
           req.session.user_id = newUser.id;
           req.session.logged_in = true;
-          
+
           const { password, ...userData } = newUser.dataValues;
           // Redirect the user to the dashboard or any other desired page
-          return res.redirect("/dashboard");
+          return res.redirect("/perfect-day");
         } catch (err) {
           // Handle any unexpected errors
           return next(err);
