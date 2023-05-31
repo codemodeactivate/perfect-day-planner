@@ -35,7 +35,22 @@ module.exports = {
     //signup
     signup: async (req, res, next) => {
         try {
+
+
             console.log(req.body);
+
+            // Check if passwords match
+        if (req.body.password !== req.body.confirmPassword) {
+            return res.status(400).send({ error: 'Passwords do not match.' });
+        }
+
+        // Check password strength
+        const passwordStrength = zxcvbn(req.body.password);
+        if (passwordStrength.score < 3) {
+            return res.status(400).send({ error: 'Password is too weak.' });
+        }
+
+        
             const existingUser = await User.findOne({
                 where: {
                     email: req.body.email,
@@ -65,7 +80,7 @@ module.exports = {
             }   else {
                 return next(err);
             }
-        
+
         }
       },
     //logout
