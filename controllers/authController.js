@@ -81,7 +81,35 @@ module.exports = {
         }
     },
     //logout
+signout-route
+    
+    logout: async (req, res, next) => {
+        try {
+          if (req.session) {
+            // Perform additional cleanup tasks if needed
+
+            // Destroy the session
+            req.session.destroy((err) => {
+              if (err) {
+                // Pass the error to the next middleware
+                return next(err);
+              }
+
+              // Redirect the user to the homepage
+              return res.redirect("/");
+            });
+          } else {
+            // Session doesn't exist, redirect to homepage
+            return res.redirect("/");
+          }
+        } catch (err) {
+          // Handle any unexpected errors
+          return next(err);
+        }
+      },
+
     logout: async (req, res) => {
         // ... your existing logout code
     },
+ main
 };
