@@ -36,6 +36,17 @@ module.exports = {
     signup: async (req, res, next) => {
         try {
             console.log(req.body);
+            const existingUser = await User.findOne({
+                where: {
+                    email: req.body.email,
+                },
+            });
+            if (existingUser) {
+                return res.status(400).json({
+                    message: "User already exists!",
+                });
+            }
+
           // Create a new user in the database
           const newUser = await User.create({
             username: req.body.username,
@@ -46,11 +57,15 @@ module.exports = {
           req.session.logged_in = true;
 
           const { password, ...userData } = newUser.dataValues;
-          // Redirect the user to the dashboard or any other desired page
+          // Redirect the user to the dashboard
           return res.redirect("/dashboard");
         } catch (err) {
-          // Handle any unexpected errors
-          return next(err);
+            if (err.name === "SequelizeValidationError") {
+                return res.status(400).send( { error: err.errors[0].message } );
+            }   else {
+                return next(err);
+            }
+        
         }
       },
     //logout
