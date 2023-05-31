@@ -47,7 +47,7 @@ module.exports = {
 
           const { password, ...userData } = newUser.dataValues;
           // Redirect the user to the dashboard or any other desired page
-          return res.redirect("/perfect-day");
+          return res.redirect("/dashboard");
         } catch (err) {
           // Handle any unexpected errors
           return next(err);

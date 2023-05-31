@@ -11,6 +11,7 @@ const selectedOptionsRoutes = require('./selectedoptions');
 const signupRoutes = require('./signup');
 const loginRoutes = require('./login');
 const homepageRoutes = require('./homepage');
+const dashboardRoutes = require('./dashboard');
 // Define routes
 router.get('/', homepageRoutes);
 router.use('/login', loginRoutes);
@@ -19,6 +20,7 @@ router.use('/perfectdays', perfectDaysRoutes);
 router.use('/optionsets', optionSetsRoutes);
 router.use('/selectedoptions', selectedOptionsRoutes);
 router.use('/signup', signupRoutes);
+router.use('/dashboard', dashboardRoutes);
 
 //router.use('/signup', signupRoutes);
 
