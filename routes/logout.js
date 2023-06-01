@@ -5,6 +5,6 @@ const withAuth = require('../middleware/auth');
 
 //logout route
 
-router.get('/', withAuth, controllers.authController.logout);
+router.get('/', controllers.authController.logout);
 
 module.exports = router;
