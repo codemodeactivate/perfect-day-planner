@@ -1,3 +1,5 @@
+const { PerfectDay, User } = require("../models");
+
 module.exports = {
     renderLogin: async (req, res) => {
         try {
@@ -30,9 +32,34 @@ module.exports = {
     },
     renderDashboard: async (req, res) => {
         try {
-            res.render("dashboard");
+          if (!req.session) {
+            throw new Error('Session is undefined');
+          }
+
+          const userId = req.session.user_id;
+
+          if (!userId) {
+            throw new Error('User ID is undefined');
+          }
+
+          const user = await User.findOne({
+            where: {
+              id: userId
+            },
+            include: PerfectDay
+          });
+
+          const perfectDays = user ? user.perfect_days : [];
+
+          console.log('USER:', user);
+          console.log('Perfect Days:', perfectDays);
+          console.log('TYPEOF: ' + typeof perfectDays);
+
+          res.render('dashboard', { user: user.toJSON(), perfectDays });
         } catch (err) {
-            res.status(500).json(err);
+          console.error(err);
+          res.status(500).json(err);
         }
-    },
+      },
+
 };

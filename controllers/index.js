@@ -8,4 +8,5 @@ module.exports = {
     selectedOptionController: require('./selectedOptionsController'),
     viewsController: require('./viewsController'),
     authController: require('./authController')
+    
 };
