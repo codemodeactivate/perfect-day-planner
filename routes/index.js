@@ -12,6 +12,8 @@ const signupRoutes = require('./signup');
 const loginRoutes = require('./login');
 const homepageRoutes = require('./homepage');
 const dashboardRoutes = require('./dashboard');
+const logoutRoutes = require('./logout');
+
 // Define routes
 router.get('/', homepageRoutes);
 router.use('/login', loginRoutes);
@@ -21,8 +23,8 @@ router.use('/optionsets', optionSetsRoutes);
 router.use('/selectedoptions', selectedOptionsRoutes);
 router.use('/signup', signupRoutes);
 router.use('/dashboard', dashboardRoutes);
+router.use('/logout', logoutRoutes);
 
 //router.use('/signup', signupRoutes);
 
 module.exports = router;
-                    
