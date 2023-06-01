@@ -1,42 +1,10 @@
 <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
     <h1 class="text-center">Welcome to Perfect Day Planner!</h1>
-    <div class="d-flex justify-content-center">
-        <nav class="navbar mt-2">
-        {{#if logged_in}}
-            <button type="submit" class="btn btn-primary mx-5" id="dashboard">Dashboard</button>
-            <button type="submit" class="btn btn-primary mx-5" id="logout">Logout</button>
-        {{else}}
-            <button type="submit" class="btn btn-primary mx-5" id="signup">Sign Up</button>
-            <button type="submit" class="btn btn-primary mx-5" id="login">Login</button>
-        {{/if}}
-        </nav>
-    </div>
+
     <div class="container mt-5">
         <h2>About</h2>
         <p>placeholder</p>
     </div>
 </div>
-<script src="scripts/script.js"></script>
-
-<script>
-     // Add event listeners to navigate to signup or login pages
-    document.getElementById('signup').addEventListener('click', function() {
-        // Navigate to signup page
-         window.location.href = '/signup';
-    });
-
-    document.getElementById('login').addEventListener('click', function() {
-        // Navigate to login page
-        window.location.href = '/login';
-    });
-
-    document.getElementById('dashboard').addEventListener('click', function() {
-        // Navigate to dashboard page
-         window.location.href = '/dashboard';
-    });
-    document.getElementById('logout').addEventListener('click', function() {
-        //add logic for logout
-    });
-</script>
 </body>
 </html>
