@@ -30,6 +30,27 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    renderPerfectDayEdit: async (req, res) => {
+      try {
+        // Fetch the perfect day from your database
+        const perfectDay = await PerfectDay.findOne({
+          where: {
+            id: req.params.id
+          }
+        });
+
+        // If perfect day doesn't exist, send a 404 response
+        if (!perfectDay) {
+          res.status(404).send('Perfect day not found');
+          return;
+        }
+
+        // If perfect day exists, render the edit page with perfect day data
+        res.render("perfect-day-edit", { perfectDay: perfectDay.toJSON() });
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    },
     renderDashboard: async (req, res) => {
         try {
           if (!req.session) {

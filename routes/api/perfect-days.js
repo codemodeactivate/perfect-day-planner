@@ -7,5 +7,6 @@ const controllers = require('../../controllers');
 
 
 router.post('/', controllers.perfectDayController.create);
+router.put('/:id/', controllers.perfectDayController.edit);
 
 module.exports = router;
