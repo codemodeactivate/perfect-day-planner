@@ -2,6 +2,8 @@ const OptionSet = require('./OptionSets');
 const PerfectDay = require('./PerfectDays');
 const SelectedOption = require('./SelectedOptions');
 const User = require('./Users');
+const Sequelize = require('sequelize');
+
 
 User.hasMany(PerfectDay, {
     foreignKey: 'user_id',

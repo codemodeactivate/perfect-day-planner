@@ -1,2 +1,61 @@
 <h1>Dashboard</h1>
 <a href="/logout">Log Out</a>
+
+
+<div class="container mt-5">
+        <h1>Welcome to your Dashboard, {{user.username}}</h1>
+        <p>Here are your Perfect Days</p>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#newDayModal">Create New 'Perfect-Day'</a>
+
+        </div>
+
+
+        {{#each perfectDays as |day|}}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{day.title}}</h5>
+                    <p class="card-text">{{day.description}}</p>
+                    <a href="/perfect-day/{{day.id}}" class="btn btn-primary">View 'Perfect-Day'</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+
+
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="newDayModal" tabindex="-1" role="dialog" aria-labelledby="newDayModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newDayModalLabel">Create New 'Perfect-Day'</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="newDayForm">
+          <div class="form-group">
+            <label for="dayTitle">Title</label>
+            <input type="text" class="form-control" id="dayTitle" placeholder="Enter title">
+          </div>
+          <div class="form-group">
+            <label for="dayDescription">Description</label>
+            <textarea class="form-control" id="dayDescription" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/scripts/dashboard.js"></script>
