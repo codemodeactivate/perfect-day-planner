@@ -3,11 +3,11 @@
     <div class="d-flex justify-content-center">
         <nav class="navbar mt-2">
         {{#if logged_in}}
-            <button type="submit" class="btn btn-primary mx-5" id="dashboard">Dashboard</button>
-            <button type="submit" class="btn btn-primary mx-5" id="logout">Logout</button>
+            <a href="/dashboard" class="btn btn-primary mx-5">Dashboard</a>
+            <a href="/logout" class="btn btn-primary mx-5">Logout</a>
         {{else}}
-            <button type="submit" class="btn btn-primary mx-5" id="signup">Sign Up</button>
-            <button type="submit" class="btn btn-primary mx-5" id="login">Login</button>
+            <a href="/signup" class="btn btn-primary mx-5">Sign Up</a>
+            <a href="/login" class="btn btn-primary mx-5">Login</a>
         {{/if}}
         </nav>
     </div>
@@ -16,27 +16,5 @@
         <p>placeholder</p>
     </div>
 </div>
-<script src="scripts/script.js"></script>
-
-<script>
-     // Add event listeners to navigate to signup or login pages
-    document.getElementById('signup').addEventListener('click', function() {
-        // Navigate to signup page
-         window.location.href = '/signup';
-    });
-
-    document.getElementById('login').addEventListener('click', function() {
-        // Navigate to login page
-        window.location.href = '/login';
-    });
-
-    document.getElementById('dashboard').addEventListener('click', function() {
-        // Navigate to dashboard page
-         window.location.href = '/dashboard';
-    });
-    document.getElementById('logout').addEventListener('click', function() {
-        //add logic for logout
-    });
-</script>
 </body>
 </html>
