@@ -12,15 +12,18 @@
         </div>
 
 
-        {{#each perfectDays as |day|}}
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{day.title}}</h5>
-                    <p class="card-text">{{day.description}}</p>
-                    <a href="/perfect-day/{{day.id}}" class="btn btn-primary">View 'Perfect-Day'</a>
-                </div>
-            </div>
-        {{/each}}
+    <!-- Display Perfect Days -->
+{{#each perfectDays as |day|}}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{day.dataValues.title}}</h5>
+      <p class="card-text">{{day.dataValues.description}}</p>
+      <a href="/perfect-day/{{day.dataValues.id}}" class="btn btn-primary">View 'Perfect-Day'</a>
+    </div>
+  </div>
+{{else}}
+  <p>No Perfect Days found.</p>
+{{/each}}
     </div>
 
 

@@ -40,6 +40,6 @@ PerfectDay.init(
   }
 );
 
-PerfectDay.belongsTo(User, { foreignKey: 'user_id' });
+//PerfectDay.belongsTo(User, { foreignKey: 'user_id' });
 
 module.exports = PerfectDay;
