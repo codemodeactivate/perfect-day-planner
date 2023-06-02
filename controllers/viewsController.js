@@ -10,7 +10,7 @@ module.exports = {
     },
     renderHomepage: async (req, res) => {
         try {
-            res.render("homepage");
+          res.render("homepage", {logged_in: req.session.logged_in});
         } catch (err) {
             res.status(500).json(err);
         }
@@ -76,11 +76,11 @@ module.exports = {
           console.log('Perfect Days:', perfectDays);
           console.log('TYPEOF: ' + typeof perfectDays);
 
-          res.render('dashboard', { user: user.toJSON(), perfectDays });
-        } catch (err) {
+          res.render('dashboard', { user: user.toJSON(), logged_in: req.session.logged_in, perfectDays })
+        }catch (err) {
           console.error(err);
           res.status(500).json(err);
         }
       },
-
+      
 };
