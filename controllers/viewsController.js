@@ -76,8 +76,9 @@ module.exports = {
           console.log('Perfect Days:', perfectDays);
           console.log('TYPEOF: ' + typeof perfectDays);
 
-          res.render('dashboard', { user: user.toJSON(), logged_in: req.session.logged_in, perfectDays })
-        }catch (err) {
+          res.render('dashboard', { user: user.toJSON(), logged_in: req.session.logged_in, perfectDays });
+        } catch (err) {
+
           console.error(err);
           res.status(500).json(err);
         }
