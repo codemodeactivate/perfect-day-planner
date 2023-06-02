@@ -1,5 +1,5 @@
 //code to handle getall, findone, etc all that jazz
-const { PerfectDay, User, OptionSet} = require("../models");
+const { PerfectDay, User, OptionSet } = require("../models");
 module.exports = {
     //create
     create: async (req, res, next) => {
@@ -24,7 +24,7 @@ module.exports = {
         console.log(req.body.options);
         const id = req.params.id;
         const { title, description, options } = req.body;
-
+        console.log('Options:', options);
         try {
           // Update perfect day
           await PerfectDay.update({ title, description }, { where: { id } });
@@ -34,9 +34,10 @@ module.exports = {
             for (let i = 0; i < options.length; i++) {
               const option = options[i];
               const optionSet = await OptionSet.findOne({ where: { id: option.id } });
-
+              //console.log("Option Set: " + OptionSet);
               if (optionSet) {
                 await optionSet.update(option);
+                console.log('Option Set:', optionSet);
               } else {
                 await OptionSet.create({
                   option1: option.option1.text,

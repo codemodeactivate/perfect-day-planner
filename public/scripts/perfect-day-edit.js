@@ -115,14 +115,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const response = await fetch(url, {
           method: 'PUT',
           body: JSON.stringify(Object.fromEntries(formData)),
+          options: perfectDay.options,
           headers: {
             'Content-Type': 'application/json'
           },
         });
-
+        //console.log(response);
         if (response.ok) {
           const updatedPerfectDay = await response.json();
-          console.log(updatedPerfectDay);
+          //console.log(updatedPerfectDay);
+          console.log('Request Payload:', JSON.stringify(Object.fromEntries(formData)));
 
           // Retrieve the updated data and update the form fields
           fetch(url)
