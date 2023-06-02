@@ -82,69 +82,78 @@ document.addEventListener('DOMContentLoaded', (event) => {
     addOptionButton.addEventListener('click', addOption);
   });
 
+
   document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelector('#editPerfectDayForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
+    const updateFormFields = (data) => {
+      const titleElement = document.getElementById('title');
+      const descriptionElement = document.getElementById('dayDescription');
 
-    const formData = new FormData(event.target);
-    const id = formData.get('id');
-   // console.log('Form Data:', formData);
-    // Make sure you are sending the 'id'
-    //console.log('id:', id);
-
-    // affix id to the end of the url
-    const url = `/api/perfect-days/${id}`;
-   // console.log('URL:', url);
-    try {
-      const response = await fetch(url, {
-        method: 'PUT',
-        body: JSON.stringify(Object.fromEntries(formData)),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-
-      if (response.ok) {
-        //console.log('Perfect Day updated successfully.');
-
-        // Retrieve the updated perfect day from the response
-        const updatedPerfectDay = await response.json();
-        console.log(updatedPerfectDay);
-          // Update the text boxes with the new data
-        const titleInput = document.getElementById('title');
-        if (titleInput) {
-            titleInput.value = updatedPerfectDay.title;
-        }
-
-        const descriptionInput = document.getElementById('dayDescription');
-        if (descriptionInput) {
-            descriptionInput.value = updatedPerfectDay.description;
-        }
-        const titleElement = document.getElementById('title');
-        const descriptionElement = document.getElementById('dayDescription');
-
-        titleElement.value = updatedPerfectDay.title;
-        descriptionElement.value = updatedPerfectDay.description;
-
-        if (titleElement) {
-        titleElement.value = updatedPerfectDay.title;
-        } else {
-        console.error('Title element not found');
-        }
-
-        if (descriptionElement) {
-        descriptionElement.value = updatedPerfectDay.description;
-        } else {
-        console.error('Description element not found');
-        }
-
-        // Update other fields if necessary
+      if (titleElement) {
+        titleElement.value = data.title || '';
       } else {
-        console.error('Error:', response.status);
+        console.error('Title element not found');
       }
-    } catch (error) {
-      // Handle any other errors that occurred during the request
-      console.error('Error:', error);
-    }
+
+      if (descriptionElement) {
+        descriptionElement.value = data.description || '';
+      } else {
+        console.error('Description element not found');
+      }
+
+      // Update other form fields if necessary
+    };
+
+    document.querySelector('#editPerfectDayForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(event.target);
+      const id = formData.get('id');
+
+      const url = `/api/perfect-days/${id}`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'PUT',
+          body: JSON.stringify(Object.fromEntries(formData)),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+
+        if (response.ok) {
+          const updatedPerfectDay = await response.json();
+          console.log(updatedPerfectDay);
+
+          // Retrieve the updated data and update the form fields
+          fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              updateFormFields(data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+          console.log('Perfect Day updated successfully.');
+        } else {
+          console.error('Error:', response.status);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+
+    // Fetch the initial data and update the form fields
+    const id = document.getElementById('id').value;
+    const initialDataUrl = `/api/perfect-days/${id}`;
+
+    fetch(initialDataUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        updateFormFields(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   });
-});

@@ -20,6 +20,8 @@ module.exports = {
         }
     },
     edit: async (req, res) => {
+        console.log(req.body);
+        console.log(req.body.options);
         const id = req.params.id;
         const { title, description, options } = req.body;
 
@@ -28,32 +30,32 @@ module.exports = {
           await PerfectDay.update({ title, description }, { where: { id } });
 
           if (options && options.length) {
-            const optionSets = await OptionSet.findAll({ where: { perfect_day_id: id } });
-
+            // Assuming options is an array of {id, option1, option1_image, option2, option2_image} objects
             for (let i = 0; i < options.length; i++) {
               const option = options[i];
-              const optionSet = optionSets[i];
+              const optionSet = await OptionSet.findOne({ where: { id: option.id } });
+
               if (optionSet) {
                 await optionSet.update(option);
               } else {
-                // If there's no matching OptionSet in the database, create a new one
-                await OptionSet.create({ ...option, perfect_day_id: id });
+                await OptionSet.create({
+                  option1: option.option1.text,
+                  option1_image: option.option1.image,
+                  option2: option.option2.text,
+                  option2_image: option.option2.image,
+                  perfect_day_id: id,
+                });
               }
             }
           }
 
-          // Fetch the updated Perfect Day and its associated OptionSets
-          const updatedPerfectDay = await PerfectDay.findOne({
-            where: { id },
-            include: { model: OptionSet, as: 'options' }
-          });
-
-          res.json(updatedPerfectDay);
+          res.json({ message: 'Perfect Day updated successfully.' });
         } catch (error) {
           console.error(error);
           res.status(500).json({ error: 'An error occurred while updating Perfect Day.' });
         }
       },
+
 
 
       view: async (req, res, next) => {
