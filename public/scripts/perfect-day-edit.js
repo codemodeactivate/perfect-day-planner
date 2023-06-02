@@ -59,3 +59,29 @@ document.addEventListener('DOMContentLoaded', (event) => {
       optionsContainer.appendChild(optionPairDiv);
     });
   });
+
+
+  document.querySelector('#editPerfectDayForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const id = formData.get('id');
+
+    // Make sure you are sending the 'id'
+    console.log('id:', id);
+
+    // Here, you concatenate the 'id' to the end of the URL
+    const url = '/api/perfect-days/' + id;
+
+
+    fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+});

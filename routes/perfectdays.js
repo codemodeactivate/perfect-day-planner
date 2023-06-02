@@ -56,7 +56,7 @@ const controllers = require('../controllers');
 //   }
 // });
 
-
+router.put('/:id', controllers.perfectDayController.edit);
 router.get('/:id/edit', controllers.viewsController.renderPerfectDayEdit);
 
 

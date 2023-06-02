@@ -19,28 +19,22 @@ module.exports = {
             res.status(500).json({ error: "Failed to create perfect day" });
         }
     },
-    edit: async (req, res, next) => {
+    edit: async (req, res) => {
+        const id = req.params.id;
+        const { title, description, options } = req.body;
         try {
-            const day = await PerfectDay.findOne({
-                where: {
-                    id: req.params.id
-                },
-                include: User,
-            });
+            // Update perfect day
+            await PerfectDay.update({ title, description }, { where: { id } });
 
-            if (!day) {
-                res.status(404).json({ error: "Perfect day not found" });
-                return;
+            // Assuming options is an array of {id, option1, option1_image, option2, option2_image} objects
+            for (let option of options) {
+                await OptionSet.update(option, { where: { id: option.id } });
             }
 
-            day.title = req.body.title;
-            day.description = req.body.description;
-            day.status = req.body.status;
-            await day.save();
-
-            res.status(200).json(day);
+            res.json({ message: 'Perfect Day updated successfully.' });
         } catch (error) {
-            res.status(500).json({ error: "Failed to edit perfect day" });
+            console.error(error);
+            res.status(500).json({ error: 'An error occurred while updating Perfect Day.' });
         }
     },
 
