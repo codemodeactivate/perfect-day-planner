@@ -29,7 +29,19 @@ PerfectDay.init(
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
-    }
+    },
+    choice1: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    choice2: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    checkbox: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   },
   {
     sequelize,
@@ -40,6 +52,9 @@ PerfectDay.init(
   }
 );
 
-//PerfectDay.belongsTo(User, { foreignKey: 'user_id' });
+PerfectDay.belongsTo(User, { foreignKey: 'user_id' });
 
 module.exports = PerfectDay;
+
+
+
