@@ -1,72 +1,76 @@
 let perfectDay;
 let optionPairCount = 0;
 
-window.onload = async function() {
-    const id = window.location.pathname.split('/').pop();
-
-    const response = await fetch(`/api/perfect-days/${id}`);
-    perfectDay = await response.json();
+window.onload = async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const perfectDayId = urlParams.get('id'); // Assuming the ID is passed as a query parameter in the URL
+    const response = await fetch(`/api/perfect-days/${perfectDayId}`);
+    const perfectDay = await response.json();
   // Populate the form with the existing OptionSets.
   for (let option of perfectDay.options) {
     addOption(option);
   }
 };
-
 document.addEventListener('DOMContentLoaded', (event) => {
-  const addOptionButton = document.getElementById('addOptionButton');
-  const optionsContainer = document.getElementById('optionsContainer');
-
-  addOptionButton.addEventListener('click', () => {
-    addOption();
-  });
-
-  function addOption(optionData = { option1: { text: '', image: '' }, option2: { text: '', image: '' } }) {
-    optionPairCount++;
+    const addOptionButton = document.getElementById('addOptionButton');
+    const optionsContainer = document.getElementById('optionsContainer');
+    let optionPairCount = optionsContainer.getElementsByClassName('option-pair').length;
 
     const createOption = (number) => {
       const optionDiv = document.createElement('div');
-      // etc...
-      textInput.value = optionData[`option${number}`].text;
-      urlInput.value = optionData[`option${number}`].image;
-      // etc...
+      optionDiv.className = 'mb-3 option-input';
+
+      const textLabel = document.createElement('label');
+      textLabel.htmlFor = `dayOption${optionPairCount}${number}`;
+      textLabel.innerText = `Option ${number} Description`;
+
+      const textInput = document.createElement('textarea');
+      textInput.className = 'form-control';
+      textInput.id = `dayOption${optionPairCount}${number}`;
+      textInput.name = `options[${optionPairCount}].option${number}.text`;
+      textInput.placeholder = `Option ${number} Description`;
+      textInput.rows = '3';
+
+      const urlLabel = document.createElement('label');
+      urlLabel.htmlFor = `dayOption${optionPairCount}${number}Url`;
+      urlLabel.innerText = `Option ${number} Image URL`;
+
+      const urlInput = document.createElement('input');
+      urlInput.type = 'url';
+      urlInput.className = 'form-control mt-2';
+      urlInput.id = `dayOption${optionPairCount}${number}Url`;
+      urlInput.name = `options[${optionPairCount}].option${number}.image`;
+      urlInput.placeholder = `Option ${number} Image URL`;
+
+      optionDiv.appendChild(textLabel);
+      optionDiv.appendChild(textInput);
+      optionDiv.appendChild(urlLabel);
+      optionDiv.appendChild(urlInput);
+
+      return optionDiv;
     };
 
-    const option1Div = createOption(1);
-    const option2Div = createOption(2);
-    // etc...
-  }
+    const addOption = () => {
+      optionPairCount++;
 
-  document.querySelector('#editPerfectDayForm').addEventListener('submit', (event) => {
-    event.preventDefault();
+      const optionPairDiv = document.createElement('div');
+      optionPairDiv.className = 'mb-5 option-pair row';
 
-    const formData = new FormData(event.target);
-    const id = formData.get('id');
+      const option1Div = createOption(1);
+      const option2Div = createOption(2);
 
-    // Convert formData to a regular object, and add the 'options' property.
-    const data = Object.fromEntries(formData);
-    data.options = [];
-    for (let i = 0; i < optionPairCount; i++) {
-      data.options.push({
-        option1: {
-          text: formData.get(`options[${i}].option1.text`),
-          image: formData.get(`options[${i}].option1.image`)
-        },
-        option2: {
-          text: formData.get(`options[${i}].option2.text`),
-          image: formData.get(`options[${i}].option2.image`)
-        },
-      });
-    }
+      option1Div.className += ' col-lg-6';
+      option2Div.className += ' col-lg-6';
 
-    fetch(`/api/perfect-days/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+      const optionPairLabel = document.createElement('h5');
+      optionPairLabel.innerText = `Option Pair ${optionPairCount}`;
+
+      optionPairDiv.appendChild(optionPairLabel);
+      optionPairDiv.appendChild(option1Div);
+      optionPairDiv.appendChild(option2Div);
+
+      optionsContainer.appendChild(optionPairDiv);
+    };
+
+    addOptionButton.addEventListener('click', addOption);
   });
-});
