@@ -7,20 +7,21 @@
 
   <h1>Edit Your Perfect Day: {{perfectDay.title}}</h1>
 
-  <form id="editPerfectDayForm" method="POST" action="/perfect-day/{{perfectDay.id}}">
+  <form id="editPerfectDayForm" method="POST" action="/perfect-day/{{id}}">
     <div class="form-group mb-4 text-center">
-      <input type="text" class="form-control" id="dayTitle" name="title" value="{{perfectDay.title}}" placeholder="Title">
-    </div>
+      <input type="text" class="form-control" id="title" name="title" value="{{perfectDay.title}}" placeholder="Title">
 
+    </div>
+    <input type="hidden" id="id" name="id" value="{{perfectDay.id}}">
     <div class="form-group mb-4 text-center">
       <textarea class="form-control" id="dayDescription" name="description" placeholder="Description">{{perfectDay.description}}</textarea>
     </div>
 
     <div id="optionsContainer" class="form-group mb-4 text-center">
-      {{#each perfectDay.options as |option|}}
+      {{#each perfectDay.options as |option index|}}
         <div class="input-group mb-3">
-          <input type="text" class="form-control" id="dayOption{{@index}}" name="options[{{@index}}].text" value="{{option.text}}" placeholder="Option Text">
-          <input type="text" class="form-control" id="dayOption{{@index}}Img" name="options[{{@index}}].image" value="{{option.image}}" placeholder="Option Image URL">
+          <input type="text" class="form-control" id="dayOption{{index}}" name="options[{{index}}].text" value="{{option.text}}" placeholder="Option Text">
+          <input type="text" class="form-control" id="dayOption{{index}}Img" name="options[{{index}}].image" value="{{option.image}}" placeholder="Option Image URL">
         </div>
       {{/each}}
     </div>

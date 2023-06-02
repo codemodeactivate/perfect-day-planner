@@ -8,5 +8,5 @@ const controllers = require('../../controllers');
 
 router.post('/', controllers.perfectDayController.create);
 router.put('/:id/', controllers.perfectDayController.edit);
-
+router.get('/:id/', controllers.perfectDayController.view);
 module.exports = router;

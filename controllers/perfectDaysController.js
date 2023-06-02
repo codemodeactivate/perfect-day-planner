@@ -1,5 +1,5 @@
 //code to handle getall, findone, etc all that jazz
-const { PerfectDay, User } = require("../models");
+const { PerfectDay, User, OptionSet} = require("../models");
 module.exports = {
     //create
     create: async (req, res, next) => {
@@ -22,34 +22,59 @@ module.exports = {
     edit: async (req, res) => {
         const id = req.params.id;
         const { title, description, options } = req.body;
+
         try {
-            // Update perfect day
-            await PerfectDay.update({ title, description }, { where: { id } });
+          // Update perfect day
+          await PerfectDay.update({ title, description }, { where: { id } });
 
-            // Assuming options is an array of {id, option1, option1_image, option2, option2_image} objects
-            for (let option of options) {
-                await OptionSet.update(option, { where: { id: option.id } });
+          if (options && options.length) {
+            const optionSets = await OptionSet.findAll({ where: { perfect_day_id: id } });
+
+            for (let i = 0; i < options.length; i++) {
+              const option = options[i];
+              const optionSet = optionSets[i];
+              if (optionSet) {
+                await optionSet.update(option);
+              } else {
+                // If there's no matching OptionSet in the database, create a new one
+                await OptionSet.create({ ...option, perfect_day_id: id });
+              }
             }
+          }
 
-            res.json({ message: 'Perfect Day updated successfully.' });
+          // Fetch the updated Perfect Day and its associated OptionSets
+          const updatedPerfectDay = await PerfectDay.findOne({
+            where: { id },
+            include: { model: OptionSet, as: 'options' }
+          });
+
+          res.json(updatedPerfectDay);
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'An error occurred while updating Perfect Day.' });
+          console.error(error);
+          res.status(500).json({ error: 'An error occurred while updating Perfect Day.' });
         }
-    },
+      },
 
-    view: async (req, res, next) => {
+
+      view: async (req, res, next) => {
         try {
             const day = await PerfectDay.findOne({
                 where: {
                     id: req.params.id,
                 },
-                include: User,
+                include: [
+                    { model: User },
+                    {
+                      model: OptionSet,
+                      as: 'options'  // Both 'model' and 'as' properties are part of the same object.
+                    }
+                ],
             });
             console.log("June 1st: " + day);
             res.status(200).json(day);
         }
         catch (error) {
+            console.log(error); // <-- Log the error
             res.status(500).json({ error: "Failed to view perfect day" });
         }
     },

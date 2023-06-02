@@ -1,20 +1,27 @@
 let perfectDay;
 let optionPairCount = 0;
+window.onload = async function() {
+    const url = new URL(window.location.href);
+    const perfectDayId = url.pathname.split('/').slice(-2, -1)[0]; // Assuming the ID is the second-to-last segment in the URL
 
-window.onload = async function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const perfectDayId = urlParams.get('id'); // Assuming the ID is passed as a query parameter in the URL
+    if (!perfectDayId) {
+      console.error('Perfect Day ID is missing in the URL.');
+      return;
+    }
+
     const response = await fetch(`/api/perfect-days/${perfectDayId}`);
-    const perfectDay = await response.json();
-  // Populate the form with the existing OptionSets.
-  for (let option of perfectDay.options) {
-    addOption(option);
-  }
-};
+    console.log(`/api/perfect-days/${perfectDayId}`);
+    perfectDay = await response.json();
+    // Populate the form with the existing OptionSets.
+    for (let option of perfectDay.options) {
+      addOption(option);
+    }
+  };
 document.addEventListener('DOMContentLoaded', (event) => {
     const addOptionButton = document.getElementById('addOptionButton');
     const optionsContainer = document.getElementById('optionsContainer');
-    let optionPairCount = optionsContainer.getElementsByClassName('option-pair').length;
+    optionPairCount = optionsContainer.getElementsByClassName('option-pair').length;
+
 
     const createOption = (number) => {
       const optionDiv = document.createElement('div');
@@ -74,3 +81,70 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     addOptionButton.addEventListener('click', addOption);
   });
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelector('#editPerfectDayForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const id = formData.get('id');
+   // console.log('Form Data:', formData);
+    // Make sure you are sending the 'id'
+    //console.log('id:', id);
+
+    // affix id to the end of the url
+    const url = `/api/perfect-days/${id}`;
+   // console.log('URL:', url);
+    try {
+      const response = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      if (response.ok) {
+        //console.log('Perfect Day updated successfully.');
+
+        // Retrieve the updated perfect day from the response
+        const updatedPerfectDay = await response.json();
+        console.log(updatedPerfectDay);
+          // Update the text boxes with the new data
+        const titleInput = document.getElementById('title');
+        if (titleInput) {
+            titleInput.value = updatedPerfectDay.title;
+        }
+
+        const descriptionInput = document.getElementById('dayDescription');
+        if (descriptionInput) {
+            descriptionInput.value = updatedPerfectDay.description;
+        }
+        const titleElement = document.getElementById('title');
+        const descriptionElement = document.getElementById('dayDescription');
+
+        titleElement.value = updatedPerfectDay.title;
+        descriptionElement.value = updatedPerfectDay.description;
+
+        if (titleElement) {
+        titleElement.value = updatedPerfectDay.title;
+        } else {
+        console.error('Title element not found');
+        }
+
+        if (descriptionElement) {
+        descriptionElement.value = updatedPerfectDay.description;
+        } else {
+        console.error('Description element not found');
+        }
+
+        // Update other fields if necessary
+      } else {
+        console.error('Error:', response.status);
+      }
+    } catch (error) {
+      // Handle any other errors that occurred during the request
+      console.error('Error:', error);
+    }
+  });
+});
