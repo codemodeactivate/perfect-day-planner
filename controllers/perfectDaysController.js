@@ -97,4 +97,28 @@ module.exports = {
             res.status(500).json({ error: "Failed to view perfect day" });
         }
     },
+    delete: async (req, res, next) => {
+        try {
+          // Find associated OptionSet records and delete them
+          const optionSets = await OptionSet.findAll({
+            where: {
+              perfect_day_id: req.params.id,
+            },
+          });
+          for (let optionSet of optionSets) {
+            await optionSet.destroy();
+          }
+          // Then delete the PerfectDay
+          await PerfectDay.destroy({
+            where: {
+              id: req.params.id,
+            },
+          });
+          res.redirect("/dashboard");
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ error: "Failed to delete Perfect Day" });
+        }
+      },
+
 };

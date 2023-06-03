@@ -9,5 +9,5 @@ router.get('/:id/edit', controllers.viewsController.renderPerfectDayEdit);
 
 router.get('/:id', controllers.perfectDayController.view);
 
-
+router.get('/:id/delete', controllers.perfectDayController.delete);
 module.exports = router;
