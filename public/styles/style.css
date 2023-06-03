@@ -127,6 +127,7 @@ body {
 
 main {
   flex: 1;
+  margin-bottom: 380px;
 }
 
 footer {
@@ -211,4 +212,106 @@ body {
 .navbar-nav .nav-item .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
+}
+
+
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  text-align: center;
+  color: white;
+  font-family: 'Pacifico', cursive;
+}
+
+.caption h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.caption h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.caption .btn {
+  font-size: 1.2rem;
+  padding: 15px 30px;
+  transition: background-color 0.3s ease;
+}
+
+.caption .btn:hover {
+  background-color: #ff6699;
+}
+
+.inspiration-section {
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  color: white;
+}
+
+.testimonial-section {
+  background-color: #fff;
+  padding: 50px 0;
+}
+
+.testimonial-section .testimonial {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.testimonial-content {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #333;
+}
+
+.testimonial-author {
+  font-size: 1.2rem;
+  color: #ff6699;
+  font-weight: bold;
+}
+
+.testimonial-section .testimonial .testimonial-content {
+  width: 70%;
+}
+
+.testimonial-section .testimonial .testimonial-author {
+  width: 20%;
+  text-align: right;
+}
+
+.how-it-works {
+  color: #ff6699;
+  font-family: 'Pacifico', cursive;
+  margin: 50px 0;
+}
+
+.how-it-works p {
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.how-it-works p i {
+  margin-right: 10px;
+  color: #ff6699;
+}
+
+.testimonial {
+  max-width: 600px;
+}
+
+.testimonial-author img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
 }
