@@ -1,8 +1,14 @@
-<h1>Dashboard</h1>
-<a href="/logout">Log Out</a>
-
-
-<div class="container mt-5">
+<div class="video-background">
+	<div class="video-wrap">
+		<div id="video">
+			<video id="bgvid" autoplay loop muted playsinline>
+				<source src="/Assets/bgvidmed.mp4" type="video/mp4">
+			</video>
+		</div>
+	</div>
+</div>
+<div class="caption-dashboard">
+<div class="container mt-xl-5">
   <h1>Welcome to your Dashboard, {{user.username}}</h1>
   <p>Here are your Perfect Days</p>
 
@@ -39,7 +45,7 @@
     <p>No Perfect Days found.</p>
   {{/each}}
 </div>
-
+</div>
 
 
 
