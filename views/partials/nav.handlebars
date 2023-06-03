@@ -1,0 +1,35 @@
+<!-- Navigation Handlebars -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ff80ab;">
+    <div class="container">
+        <a class="navbar-brand" href="/" style="font-family: 'Pacifico', cursive; color: #fff;">Perfect Day Planner</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                {{#if logged_in}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard" style="color: #fff;">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" style="color: #fff;">Logout</a>
+                    </li>
+                {{else}}
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="/signup" style="color: #fff;">Sign Up</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="/login" style="color: #fff;">Login</a>
+                    </li>
+                {{/if}}
+                <li class="nav-item d-none d-lg-block">
+                    <a class="nav-link" href="/signup" style="color: #fff;">Sign Up</a>
+                </li>
+                <li class="nav-item d-none d-lg-block">
+                    <a class="nav-link" href="/login" style="color: #fff;">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
