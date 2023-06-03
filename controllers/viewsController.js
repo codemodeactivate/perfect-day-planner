@@ -10,7 +10,7 @@ module.exports = {
     },
     renderHomepage: async (req, res) => {
         try {
-            res.render("homepage", {logged_in: req.session.logged_in});
+          res.render("homepage", {logged_in: req.session.logged_in});
         } catch (err) {
             res.status(500).json(err);
         }
@@ -29,6 +29,27 @@ module.exports = {
         } catch (err) {
             res.status(500).json(err);
         }
+    },
+    renderPerfectDayEdit: async (req, res) => {
+      try {
+        // Fetch the perfect day from your database
+        const perfectDay = await PerfectDay.findOne({
+          where: {
+            id: req.params.id
+          }
+        });
+
+        // If perfect day doesn't exist, send a 404 response
+        if (!perfectDay) {
+          res.status(404).send('Perfect day not found');
+          return;
+        }
+
+        // If perfect day exists, render the edit page with perfect day data
+        res.render("perfect-day-edit", { perfectDay: perfectDay.toJSON() });
+      } catch (err) {
+        res.status(500).json(err);
+      }
     },
     renderDashboard: async (req, res) => {
         try {
@@ -57,9 +78,10 @@ module.exports = {
 
           res.render('dashboard', { user: user.toJSON(), logged_in: req.session.logged_in, perfectDays });
         } catch (err) {
+
           console.error(err);
           res.status(500).json(err);
         }
       },
-
+      
 };

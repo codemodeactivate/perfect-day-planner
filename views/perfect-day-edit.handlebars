@@ -1,0 +1,47 @@
+<h1>Edit Perfect Day</h1>
+
+<div class="container mt-5">
+  <div class="status-placeholder text-right">
+    <h4>Status: {{perfectDay.status}}</h4>
+  </div>
+
+  <h1>Edit Your Perfect Day: {{perfectDay.title}}</h1>
+
+  <form id="editPerfectDayForm" method="POST" action="/perfect-day/{{id}}">
+    <div class="form-group mb-4 text-center">
+      <input type="text" class="form-control" id="title" name="title" value="{{perfectDay.title}}" placeholder="Title">
+
+    </div>
+    <input type="hidden" id="id" name="id" value="{{perfectDay.id}}">
+    <div class="form-group mb-4 text-center">
+      <textarea class="form-control" id="dayDescription" name="description" placeholder="Description">{{perfectDay.description}}</textarea>
+    </div>
+
+    <div id="optionsContainer" class="form-group mb-4 text-center">
+      {{#each perfectDay.options as |option index|}}
+        <div class="input-group mb-3">
+        <input type="text" class="form-control" id="dayOption{{index}}" name="options[{{index}}].option1.text" value="{{option.option1.text}}" placeholder="Option Text">
+        <input type="text" class="form-control" id="dayOption{{index}}Img" name="options[{{index}}].option1.image" value="{{option.option1.image}}" placeholder="Option Image URL">
+        <input type="text" class="form-control" id="dayOption{{index}}" name="options[{{index}}].option2.text" value="{{option.option2.text}}" placeholder="Option Text">
+        <input type="text" class="form-control" id="dayOption{{index}}Img" name="options[{{index}}].option2.image" value="{{option.option2.image}}" placeholder="Option Image URL">
+          <input type="hidden" name="options[{{index}}].id" value="{{option.id}}">
+        </div>
+
+      {{/each}}
+    </div>
+
+    <button id="addOptionButton" type="button" class="btn btn-secondary mb-4">Add New Option</button>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+      <a href="/perfect-day/{{perfectDay.id}}/delete" class="btn btn-danger btn-lg">
+        <i class="fas fa-trash-alt"></i> Delete Perfect Day
+      </a>
+    </div>
+
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/scripts/perfect-day-edit.js"></script>

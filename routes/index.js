@@ -25,6 +25,7 @@ router.use('/selectedoptions', selectedOptionsRoutes);
 router.use('/signup', signupRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/logout', logoutRoutes);
+router.use('/perfect-day', perfectDaysRoutes);
 
 router.use('/api/perfect-days', createPerfectDayRoutes);
 
