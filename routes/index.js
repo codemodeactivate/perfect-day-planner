@@ -27,6 +27,7 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/logout', logoutRoutes);
 router.use('/perfect-day', perfectDaysRoutes);
 
+
 router.use('/api/perfect-days', createPerfectDayRoutes);
 
 //router.use('/signup', signupRoutes);
