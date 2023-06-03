@@ -130,14 +130,58 @@ main {
 }
 
 footer {
-  background-color: #f8f9fa;
+  background-color: rgba(0, 0, 0, 0.6);
   padding: 20px 0;
-  color: #000;
-  text-align: center;
-  position: sticky;
+  color: #fff;
+  position: fixed;
   bottom: 0;
+  width: 100%;
 }
 
+footer p,
+footer a {
+  color: #fff;
+}
+
+footer form .form-label {
+  color: #fff;
+}
+
+footer .btn-primary {
+  background-color: #ff80ab;
+  border-color: #ff80ab;
+}
+
+footer .btn-primary:hover {
+  background-color: #ff6699;
+  border-color: #ff6699;
+}
+
+footer .list-unstyled li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .list-unstyled li a:hover {
+  text-decoration: underline;
+}
+
+footer input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+footer input {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+footer input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
 header {
   background-color: rgba(0, 0, 0, 0.7);
