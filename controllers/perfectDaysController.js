@@ -1,21 +1,18 @@
 //code to handle getall, findone, etc all that jazz
 const { PerfectDay, User, OptionSet } = require("../models");
-const { generateGuestKey } = require("../helpers/guestKey");
 module.exports = {
     //create
     create: async (req, res, next) => {
         try {
-            // console.log("------------------------------------");
-            // console.log("REQ SESSION IS: " + req.body);
-            // console.log("------------------------------------");
-            const guestKey = generateGuestKey();
+            console.log("------------------------------------");
+            console.log("REQ SESSION IS: " + req.body);
+            console.log("------------------------------------");
             const day = await PerfectDay.create({
                 title: req.body.title,
                 description: req.body.description,
                 status: req.body.status || "In Progress",
                 // You may also want to add the user ID here, if "perfect days" are associated with users
                 user_id: req.session.user_id,
-                guestKey: guestKey,
             });
             res.status(201).json(day);
         } catch (error) {
@@ -81,33 +78,25 @@ module.exports = {
 
     view: async (req, res, next) => {
         try {
-          const day = await PerfectDay.findOne({
-            where: {
-              id: req.params.id,
-            },
-            include: [
-              { model: User },
-              {
-                model: OptionSet,
-                as: "options",
-              },
-            ],
-          });
-
-          if (!day) {
-            return res.status(404).json({ error: "Perfect Day not found" });
-          }
-
-          const { guestKey } = day;
-
-          res.status(200).json({ day, guestKey });
+            const day = await PerfectDay.findOne({
+                where: {
+                    id: req.params.id,
+                },
+                include: [
+                    { model: User },
+                    {
+                        model: OptionSet,
+                        as: "options", // Both 'model' and 'as' properties are part of the same object.
+                    },
+                ],
+            });
+            console.log("June 1st: " + day);
+            res.status(200).json(day);
         } catch (error) {
-          console.log(error);
-          res.status(500).json({ error: "Failed to view perfect day" });
+            console.log(error); // <-- Log the error
+            res.status(500).json({ error: "Failed to view perfect day" });
         }
-      },
-
-      
+    },
     delete: async (req, res, next) => {
         try {
           // Find associated OptionSet records and delete them
@@ -131,30 +120,5 @@ module.exports = {
           res.status(500).json({ error: "Failed to delete Perfect Day" });
         }
       },
-      guestView: async (req, res, next) => {
-        try {
-            const guestKey = req.params.guestKey;
-            const perfectDayId = req.params.id;
-            const perfectDay = await PerfectDay.findOne(perfectDayId, {
-                where: {
-                    guestKey: guestKey,
-                },
-                include: [
-                    {
-                        model: OptionSet,
-                        as: 'options',
 
-                    }
-                ]
-            });
-            if (!perfectDay) {
-                return res.status(404).json({ error: "Perfect Day not found" });
-            }
-            res.render('guest-view', { perfectDay });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ error: "Failed to view perfect day" });
-
-        }
-    },
 };
