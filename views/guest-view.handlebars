@@ -1,31 +1,22 @@
-<h1>Perfect Day</h1>
+<div class="container mt-5">
+  <h1>{{perfectDay.title}}</h1>
+  <p>{{perfectDay.description}}</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  {{#if perfectDay.options.length}}
+    <div class="optionset-container">
+      {{#each perfectDay.options}}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{this.option1}}</h5>
+            <p class="card-text">{{this.option1_image}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p>No options found.</p>
+  {{/if}}
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
