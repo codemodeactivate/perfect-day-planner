@@ -245,3 +245,10 @@
 //             console.error("Error:", error);
 //         });
 // });
+
+
+$('.flip-card').click(function() {
+    if (!$(this).hasClass('is-selected')) {
+      $(this).addClass('is-flipped is-selected');
+    }
+  });
