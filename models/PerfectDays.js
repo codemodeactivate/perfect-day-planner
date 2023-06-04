@@ -33,6 +33,10 @@ PerfectDay.init(
     url: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    guestKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   },
   {

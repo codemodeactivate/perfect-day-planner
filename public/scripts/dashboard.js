@@ -38,3 +38,23 @@ $(document).ready(function() {
       });
     });
   });
+
+
+  function showPreview() {
+    const dayId = document.getElementById('previewBtn').getAttribute('data-day-id');
+    console.log(dayId);
+    // Make a GET request to fetch the preview URL
+    fetch(`/perfect-day/${dayId}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const guestKey = data.guestKey; // Extract the guestKey from the response JSON
+        const previewUrl = `/guest-view/${guestKey}`; // Use the extracted guestKey
+        console.log('Preview URL:', previewUrl);
+
+        // Update the URL display in your HTML
+        const previewUrlElement = document.getElementById('previewUrl');
+        previewUrlElement.textContent = previewUrl;
+      })
+      .catch(error => console.error('Error:', error));
+  }

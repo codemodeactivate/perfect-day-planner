@@ -1,4 +1,13 @@
-const { PerfectDay, User } = require("../models");
+const { PerfectDay, User, OptionSet } = require("../models");
+const fs = require('fs').promises;
+const handlebars = require('handlebars');
+
+async function renderTemplate(templateName, data) {
+  const templateString = await fs.readFile(`views/${templateName}.handlebars`, 'utf8');
+  const template = handlebars.compile(templateString);
+  return template(data);
+}
+
 
 module.exports = {
     renderLogin: async (req, res) => {
@@ -36,7 +45,13 @@ module.exports = {
         const perfectDay = await PerfectDay.findOne({
           where: {
             id: req.params.id
-          }
+          },
+          include: [
+            {
+              model: OptionSet,
+              as: "options"
+            }
+          ]
         });
 
         // If perfect day doesn't exist, send a 404 response
@@ -46,11 +61,14 @@ module.exports = {
         }
 
         // If perfect day exists, render the edit page with perfect day data
-        res.render("perfect-day-edit", { perfectDay: perfectDay.toJSON() });
+        res.render('perfect-day-edit', { perfectDay: perfectDay.toJSON() });
       } catch (err) {
-        res.status(500).json(err);
+        console.error(err);
+        res.status(500).send('Internal Server Error');
       }
     },
+
+
     renderDashboard: async (req, res) => {
         try {
           if (!req.session) {
@@ -83,5 +101,5 @@ module.exports = {
           res.status(500).json(err);
         }
       },
-      
+
 };
