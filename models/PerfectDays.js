@@ -29,6 +29,10 @@ PerfectDay.init(
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
+    },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: true,
     }
   },
   {
