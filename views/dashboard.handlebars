@@ -28,9 +28,22 @@
         </div>
         <div class="col-md-3">
           <div class="card-body d-flex flex-column-reverse flex-md-column justify-content-between h-100 justify-content-md-end">
-            <div id="previewSection">
+        <div id="previewSection">
+          <div class="url-container">
             <p id="previewUrl"></p>
+          </div>
+          <div class="button-container">
+            <div class="copy-container">
+              <span id="copyIndicator" class="copy-indicator">Copied!</span>
             </div>
+            <button id="copyBtn" onclick="copyToClipboard()"><i class="far fa-copy"></i></button>
+          </div>
+
+
+
+
+
+        </div>
             <a href="#" id="previewBtn" class="btn btn-success mb-3 mb-md-2" data-day-id="{{ day.dataValues.id }}" onclick="showPreview(this.getAttribute('data-day-id'), '{{ day.guestKey }}')">
               <i class="fas fa-paper-plane"></i> Preview URL
             </a>
