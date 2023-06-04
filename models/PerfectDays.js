@@ -34,7 +34,11 @@ PerfectDay.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    
+    guestKey: {
+      type: DataTypes.STRING,
+      //defaultValue: '',
+      unique: true,
+    },
   },
   {
     sequelize,
