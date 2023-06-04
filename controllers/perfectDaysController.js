@@ -81,25 +81,33 @@ module.exports = {
 
     view: async (req, res, next) => {
         try {
-            const day = await PerfectDay.findOne({
-                where: {
-                    id: req.params.id,
-                },
-                include: [
-                    { model: User },
-                    {
-                        model: OptionSet,
-                        as: "options", // Both 'model' and 'as' properties are part of the same object.
-                    },
-                ],
-            });
-            console.log("June 1st: " + day);
-            res.status(200).json(day);
+          const day = await PerfectDay.findOne({
+            where: {
+              id: req.params.id,
+            },
+            include: [
+              { model: User },
+              {
+                model: OptionSet,
+                as: "options",
+              },
+            ],
+          });
+
+          if (!day) {
+            return res.status(404).json({ error: "Perfect Day not found" });
+          }
+
+          const { guestKey } = day;
+
+          res.status(200).json({ day, guestKey });
         } catch (error) {
-            console.log(error); // <-- Log the error
-            res.status(500).json({ error: "Failed to view perfect day" });
+          console.log(error);
+          res.status(500).json({ error: "Failed to view perfect day" });
         }
-    },
+      },
+
+      
     delete: async (req, res, next) => {
         try {
           // Find associated OptionSet records and delete them
