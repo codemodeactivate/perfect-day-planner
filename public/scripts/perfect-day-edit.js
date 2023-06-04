@@ -1,30 +1,30 @@
 let perfectDay;
 let optionPairCount = 0;
 
-const createOption = (number, optionData) => {
+const createOption = (number, optionData, index) => {
     const optionDiv = document.createElement("div");
     optionDiv.className = "mb-3 option-input";
 
     const textLabel = document.createElement("label");
-    textLabel.htmlFor = `dayOption${optionPairCount}${number}`;
+    textLabel.htmlFor = `dayOption${index}${number}`;
     textLabel.innerText = `Option ${number} Description`;
 
     const textInput = document.createElement("textarea");
     textInput.className = "form-control";
-    textInput.id = `dayOption${optionPairCount}${number}`;
-    textInput.name = `options[${optionPairCount}].option${number}Text`;
+    textInput.id = `dayOption${index}${number}`;
+    textInput.name = `options[${index}].option${number}.text`;
     textInput.placeholder = `Option ${number} Description`;
     textInput.rows = "3";
 
     const urlLabel = document.createElement("label");
-    urlLabel.htmlFor = `dayOption${optionPairCount}${number}Url`;
+    urlLabel.htmlFor = `dayOption${index}${number}Url`;
     urlLabel.innerText = `Option ${number} Image URL`;
 
     const urlInput = document.createElement("input");
     urlInput.type = "url";
     urlInput.className = "form-control mt-2";
-    urlInput.id = `dayOption${optionPairCount}${number}Url`;
-    urlInput.name = `options[${optionPairCount}].option${number}ImageUrl`;
+    urlInput.id = `dayOption${index}${number}Url`;
+    urlInput.name = `options[${index}].option${number}.image`;
     urlInput.placeholder = `Option ${number} Image URL`;
 
     if (optionData) {
@@ -43,26 +43,27 @@ const createOption = (number, optionData) => {
     return optionDiv;
   };
 
-const addOption = (optionData, optionsContainer) => {
-    // console.log("Adding option:", optionData);
+
+  const addOption = (optionData, optionsContainer) => {
     const optionPairDiv = document.createElement("div");
     optionPairDiv.className = "mb-5 option-pair row";
 
-    const option1Div = createOption(1, optionData ? optionData.option1 : null);
-    const option2Div = createOption(2, optionData ? optionData.option2 : null);
+    const optionIndex = optionsContainer.children.length;
+    const option1Div = createOption(1, optionData ? optionData.option1 : null, optionIndex);
+    const option2Div = createOption(2, optionData ? optionData.option2 : null, optionIndex);
 
     option1Div.className += " col-lg-6";
     option2Div.className += " col-lg-6";
 
     const optionPairLabel = document.createElement("h5");
-    optionPairLabel.innerText = `Option Pair ${optionPairCount}`;
+    optionPairLabel.innerText = `Option Pair ${optionIndex}`;
 
     optionPairDiv.appendChild(optionPairLabel);
     optionPairDiv.appendChild(option1Div);
     optionPairDiv.appendChild(option2Div);
 
     optionsContainer.appendChild(optionPairDiv);
-    optionPairCount++;
+
     return [option1Div, option2Div];
   };
 
@@ -95,20 +96,22 @@ const updateFormFields = (data) => {
         const optionPairs = Array.from(document.querySelectorAll(".option-pair"));
 
         return optionPairs.map((optionPair, index) => {
-          const option1TextElement = optionPair.querySelector(`textarea[id='dayOption${index}1']`);
-          const option1ImageElement = optionPair.querySelector(`input[id='dayOption${index}1Url']`);
-          const option2TextElement = optionPair.querySelector(`textarea[id='dayOption${index}2']`);
-          const option2ImageElement = optionPair.querySelector(`input[id='dayOption${index}2Url']`);
+          const option1TextElement = optionPair.querySelector(`textarea[name="options[${index}].option1.text"]`);
+          const option1ImageElement = optionPair.querySelector(`input[name="options[${index}].option1.image"]`);
+          const option2TextElement = optionPair.querySelector(`textarea[name="options[${index}].option2.text"]`);
+          const option2ImageElement = optionPair.querySelector(`input[name="options[${index}].option2.image"]`);
+          const optionIdElement = optionPair.querySelector(`input[name="options[${index}].id"]`);
 
           return {
+            id: optionIdElement ? optionIdElement.value : null,
             option1: {
               text: option1TextElement ? option1TextElement.value : "",
-              image: option1ImageElement ? option1ImageElement.value : ""
+              image: option1ImageElement ? option1ImageElement.value : "",
             },
             option2: {
               text: option2TextElement ? option2TextElement.value : "",
-              image: option2ImageElement ? option2ImageElement.value : ""
-            }
+              image: option2ImageElement ? option2ImageElement.value : "",
+            },
           };
         });
       }
@@ -123,11 +126,10 @@ const updateFormFields = (data) => {
         editPerfectDayForm.addEventListener("submit", async (event) => {
             event.preventDefault();
 
+            const options = getOptionsData(); // Add this line to retrieve the options data
+
             const formData = new FormData(event.target);
             const id = formData.get("id");
-
-            const options = getOptionsData();
-            console.log('Options:', options); // Let's log the options before they are added to the jsonData object.
 
             const jsonData = {
               id,
@@ -135,10 +137,6 @@ const updateFormFields = (data) => {
               description: formData.get("description"),
               options: options,
             };
-
-            console.log("Form Data:", Object.fromEntries(formData));
-            console.log("JSON Data:", jsonData);
-            console.log("Updated data:", jsonData);
 
             const url = `/api/perfect-days/${id}`;
 
@@ -208,7 +206,7 @@ const updateFormFields = (data) => {
   addOptionButton.addEventListener("click", () => {
     console.log("Add option button clicked");
     addOption(null,optionsContainer);
-    optionPairCount++;
+    //optionPairCount++;
   });
 
 

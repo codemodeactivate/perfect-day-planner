@@ -19,13 +19,14 @@
   <div id="optionsContainer" class="form-group mb-4 text-center">
 {{#each perfectDay.options as |option index|}}
   <div class="input-group mb-3">
-    <input type="text" class="form-control" id="dayOption{{index}}option1" name="options.{{index}}.option1.text" value="{{option.option1.text}}" placeholder="Option Text">
-    <input type="text" class="form-control" id="dayOption{{index}}Img1" name="options.{{index}}.option1.image" value="{{option.option1.image}}" placeholder="Option Image URL">
-    <input type="text" class="form-control" id="dayOption{{index}}option2" name="options.{{index}}.option2.text" value="{{option.option2.text}}" placeholder="Option Text">
-    <input type="text" class="form-control" id="dayOption{{index}}Img2" name="options.{{index}}.option2.image" value="{{option.option2.image}}" placeholder="Option Image URL">
-    <input type="hidden" name="options.{{index}}.id" value="{{option.id}}">
+    <input type="text" class="form-control" id="dayOption{{index}}option1" name="options[{{index}}].option1.text" value="{{option.option1.text}}" placeholder="Option Text">
+    <input type="text" class="form-control" id="dayOption{{index}}Img1" name="options[{{index}}].option1.image" value="{{option.option1.image}}" placeholder="Option Image URL">
+    <input type="text" class="form-control" id="dayOption{{index}}option2" name="options[{{index}}].option2.text" value="{{option.option2.text}}" placeholder="Option Text">
+    <input type="text" class="form-control" id="dayOption{{index}}Img2" name="options[{{index}}].option2.image" value="{{option.option2.image}}" placeholder="Option Image URL">
+    <input type="hidden" name="options[{{index}}].id" value="{{option.id}}">
   </div>
 {{/each}}
+
   </div>
 
     <button id="addOptionButton" type="button" class="btn btn-secondary mb-4">Add New Option</button>
