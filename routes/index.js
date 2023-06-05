@@ -16,16 +16,17 @@ const logoutRoutes = require('./logout');
 const createPerfectDayRoutes = require('./api/perfect-days');
 
 // Define routes
+router.use('/perfect-day', perfectDaysRoutes);
 router.get('/', homepageRoutes);
 router.use('/login', loginRoutes);
 router.use('/users', usersRoutes);
-router.use('/perfectdays', perfectDaysRoutes);
+//router.use('/perfectdays', perfectDaysRoutes);
 router.use('/optionsets', optionSetsRoutes);
 router.use('/selectedoptions', selectedOptionsRoutes);
 router.use('/signup', signupRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/logout', logoutRoutes);
-router.use('/perfect-day', perfectDaysRoutes);
+
 
 
 router.use('/api/perfect-days', createPerfectDayRoutes);

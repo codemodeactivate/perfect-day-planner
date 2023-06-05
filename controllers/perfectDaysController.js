@@ -110,33 +110,30 @@ module.exports = {
 
 
     view: async (req, res, next) => {
-        try {
-          const day = await PerfectDay.findOne({
-            where: {
-              id: req.params.id,
+      try {
+        const day = await PerfectDay.findByPk(req.params.id, {
+          include: [
+            { model: User },
+            {
+              model: OptionSet,
+              as: "options",
             },
-            include: [
-              { model: User },
-              {
-                model: OptionSet,
-                as: "options",
-              },
-            ],
-          });
+          ],
+        });
 
-          if (!day) {
-            return res.status(404).json({ error: "Perfect Day not found" });
-          }
-
-          const { guestKey } = day;
-          day.guestKey = guestKey;
-          res.status(200).json({ day: day.toJSON(), guestKey });
-          console.log("HI MATT:", day.toJSON());
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({ error: "Failed to view perfect day" });
+        if (!day) {
+          return res.status(404).json({ error: "Perfect Day not found" });
         }
+
+        const { guestKey } = day;
+        res.status(200).json({ day: day.toJSON(), guestKey });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Failed to view perfect day" });
+      }
     },
+
+
     delete: async (req, res, next) => {
         try {
           // Find associated OptionSet records and delete them
@@ -162,26 +159,34 @@ module.exports = {
       },
       guestView: async (req, res, next) => {
         try {
-          const guestKey = req.params.guestKey;
-          const perfectDayId = req.params.id;
-          const perfectDay = await PerfectDay.findByPk(perfectDayId, {
-              where: {
-                  guestKey: guestKey,
+          const { guestKey } = req.params;
+
+          console.log('Guest Key:', guestKey);
+
+          const perfectDay = await PerfectDay.findOne({
+            where: {
+              guestKey: guestKey,
+            },
+            include: [
+              {
+                model: OptionSet,
+                as: 'options',
               },
-              include: [
-                  {
-                      model: OptionSet,
-                      as: 'options',
-                    }
-                  ]
-              });
-              if (!perfectDay) {
-                  return res.status(404).json({ error: "Perfect Day not found" });
-              }
-              res.render('guest-view', { perfectDay });
+            ],
+          });
+
+          console.log('Perfect Day:', perfectDay);
+
+          if (!perfectDay) {
+            console.log('Perfect Day not found');
+            return res.status(404).json({ error: "Perfect Day not found" });
+          }
+
+          // Render the guest-view template with the perfectDay data
+          res.render('guest-view', { perfectDay: perfectDay.toJSON() });
         } catch (error) {
-          console.log(error);
+          console.log('Error:', error);
           res.status(500).json({ error: "Failed to view perfect day" });
         }
-    },
+      },
 };

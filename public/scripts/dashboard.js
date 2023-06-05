@@ -51,16 +51,19 @@ $(document).ready(function() {
       .then(data => {
         console.log(data);
         const guestKey = data.guestKey; // Extract the guestKey from the response JSON
-        const previewUrl = `/guest-view/${guestKey}`; // Use the extracted guestKey
+        const previewUrl = `${window.location.origin}/perfect-day/${guestKey}/view`; // Use the extracted guestKey
         console.log('Preview URL:', previewUrl);
-
+        //perfect-day/key/view
         // Update the URL display in your HTML
         const previewUrlElement = document.getElementById('previewUrl');
         const copyBtn = document.getElementById('copyBtn');
         copyBtn.style.display = 'inline-block'; // Show the copy button
+
+
+
         previewUrlElement.textContent = previewUrl;
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error:', error.message));
   }
 
 
