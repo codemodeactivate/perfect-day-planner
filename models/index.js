@@ -15,9 +15,11 @@ PerfectDay.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 
-PerfectDay.hasMany(OptionSet, {
-    foreignKey: 'perfect_day_id',
-    onDelete: 'CASCADE'
+PerfectDay.hasMany(OptionSet,
+    {
+        foreignKey: 'perfect_day_id',
+        onDelete: 'CASCADE',
+        as: 'options'
 });
 
 OptionSet.belongsTo(PerfectDay, {

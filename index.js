@@ -5,6 +5,7 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./routes');
 //const helpers = require('./helpers');
+const fs = require('fs');
 
 const sequelize = require('./config/connection');
 
@@ -18,8 +19,8 @@ const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({
   defaultLayout: 'main',
   //helpers: helpers,
-  partialsDir: 'views/partials',
-  layoutsDir: 'views/layouts'
+  partialsDir: path.join(__dirname, 'views/partials'),
+  layoutsDir: path.join(__dirname, 'views/layouts')
 });
 
 const sess = {
@@ -46,6 +47,22 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+
+  res.locals.headerClass = req.url !== '/' ? 'scrolled' : '';
+  next();
+});
+
+app.use((req, res, next) => {
+  const navTemplate = hbs.handlebars.compile(fs.readFileSync('views/partials/nav.handlebars', 'utf-8'));
+  const footerTemplate = hbs.handlebars.compile(fs.readFileSync('views/partials/footer.handlebars', 'utf-8'));
+
+  res.locals.nav = navTemplate(req.session);
+  res.locals.footer = footerTemplate(req.session);
+
+  next();
+});
 
 app.use('/', routes);
 

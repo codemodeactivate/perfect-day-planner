@@ -30,6 +30,7 @@ PerfectDay.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+<<<<<<< HEAD
     choice1: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -42,6 +43,16 @@ PerfectDay.init(
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },
+=======
+    url: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    guestKey: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    }
+>>>>>>> 925896016c2e2ddadd18d52bcbf7cd274cc7c073
   },
   {
     sequelize,
