@@ -130,7 +130,7 @@ module.exports = {
 
           const { guestKey } = day;
           day.guestKey = guestKey;
-          res.status(200).json({ day: day.toJSON()/*, guestKey */});
+          res.status(200).json({ day: day.toJSON(), guestKey });
           console.log("HI MATT:", day.toJSON());
         } catch (error) {
           console.log(error);

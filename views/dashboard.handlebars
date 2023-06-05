@@ -31,9 +31,10 @@
             <div id="previewSection">
             <p id="previewUrl"></p>
             </div>
-            <a href="#" id="previewBtn" class="btn btn-success mb-3 mb-md-2" data-day-id="{{ day.dataValues.id }}" onclick="showPreview(this.getAttribute('data-day-id'), '{{ day.guestKey }}')">
+            <a href="#" id="previewBtn" class="btn btn-success mb-3 mb-md-2" data-day-id="{{ day.dataValues.id }}" onclick="showPreview(this.getAttribute('data-day-id'), '{{ this.day.guestKey }}')">
               <i class="fas fa-paper-plane"></i> Preview URL
             </a>
+
 
             <a href="/perfect-day/{{day.dataValues.id}}/delete" class="btn btn-danger mb-3 mb-md-2">
               <i class="fas fa-trash-alt"></i>

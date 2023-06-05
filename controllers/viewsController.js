@@ -90,7 +90,7 @@ module.exports = {
             },
             include: PerfectDay
           });
-
+          
           const perfectDays = user ? user.perfect_days : [];
 
           console.log('USER:', user);
