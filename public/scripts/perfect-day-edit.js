@@ -1,6 +1,10 @@
 let perfectDay;
 let optionPairCount = 0;
 
+const url = new URL(window.location.href);
+const perfectDayId = url.pathname.split("/").slice(-2, -1)[0]; // Assuming the ID is the second-to-last segment in the URL
+
+
 const createOption = (number, optionData, index) => {
     const optionDiv = document.createElement("div");
     optionDiv.className = "mb-3 option-input";
@@ -157,7 +161,9 @@ const createOption = (number, optionData, index) => {
             const formData = new FormData(event.target);
             console.log(event.log);
             //console.log(formData.get("id"));
-            const id = formData.get("id");
+            const id = perfectDayId;
+
+
 
             const jsonData = {
               id,
@@ -195,8 +201,6 @@ const createOption = (number, optionData, index) => {
 
     }
 
-  const url = new URL(window.location.href);
-  const perfectDayId = url.pathname.split("/").slice(-2, -1)[0]; // Assuming the ID is the second-to-last segment in the URL
 
 
 
@@ -207,10 +211,10 @@ const createOption = (number, optionData, index) => {
   }
 
   const response = await fetch(`/api/perfect-days/${perfectDayId}`);
-  console.log("Response:", response);
-  perfectDay = await response.json();
-  console.log("Perfect Day:", perfectDay);
-  const optionsContainer = document.getElementById("optionsContainer");
+    console.log("Response:", response);
+    perfectDay = await response.json();
+    console.log("Perfect Day:", perfectDay);
+    const optionsContainer = document.getElementById("optionsContainer");
 
   if (!optionsContainer) {
     console.error("Options container not found.");
