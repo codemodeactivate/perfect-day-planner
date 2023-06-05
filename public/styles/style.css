@@ -16,7 +16,7 @@ button {
   cursor: pointer;
 }
 
-.flipCard-container {
+.card-container {
   font-size: 120px;
   font-weight: bold;
   width: 400px;
@@ -24,9 +24,11 @@ button {
   margin: 80px auto;
   border-radius: 15px;
   perspective: 1400px;
+  padding: 10px;
+  flex-basis: calc(50% - 100px);
 }
 
-.flipCard {
+.flip-card {
   position: relative;
   height: 100%;
   border-radius: 15px;
@@ -373,4 +375,9 @@ body {
   display: none;
   font-size: 0.8rem;
   color: green;
+}
+.option-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

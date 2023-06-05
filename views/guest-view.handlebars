@@ -1,9 +1,44 @@
+<h1 class="text-center mt-5">GUEST VIEW</h1>
 
-<h1>GUEST VIEW</h1>
+<div class="container">
+  <p class="fs-5">Title: {{perfectDay.title}}</p>
+  <p class="fs-5">Description: {{perfectDay.description}}</p>
+</div>
 
+<body>
+  <div class="option-container">
+    {{#each perfectDay.options}}
+      <div class="card-container">
+        <div class="flip-card">
+          <div class="cardFront">
+            <h3>Placeholder</h3>
+          </div>
+          <div class="cardBack">
+            <div class="option">
+              <h3>{{this.option1}}</h3>
+              <!--<img src="{{this.option1_image}}"/>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-container">
+        <div class="flip-card">
+          <div class="cardFront">
+            <h3>Placeholder</h3>
+          </div>
+          <div class="cardBack">
+            <div class="option">
+              <h3>{{this.option2}}</h3>
+              <!--<img src="{{this.option2_image}}"/>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="/scripts/guest-view.js"></script>
+  <script src="/scripts/cardFlip.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="/scripts/guest-view.js"></script>
+</body>
