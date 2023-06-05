@@ -60,7 +60,7 @@ button {
 }
 
 .navbar {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 139, 189, 0.952);
 }
 
 .navbar-title {
@@ -316,4 +316,8 @@ body {
   width: 100px;
   height: auto;
   border-radius: 50%;
+}
+.text-shadow{
+  text-shadow: .1rem .1rem .7rem black;
+  padding-bottom: 1rem;
 }
