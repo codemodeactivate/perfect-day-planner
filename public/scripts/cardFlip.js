@@ -1,4 +1,4 @@
-var flipCard = document.querySelector(".flipCard");
+var flipCard = document.querySelector(".flip-card");
 var playing = false;
 
 flipCard.addEventListener("click", () => {

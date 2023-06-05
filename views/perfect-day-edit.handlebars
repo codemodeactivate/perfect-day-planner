@@ -1,11 +1,18 @@
-<h1>Edit Perfect Day</h1>
-
-<div class="container mt-5">
+<div class="video-background">
+	<div class="video-wrap">
+		<div id="video">
+			<video id="bgvid" autoplay loop muted playsinline>
+				<source src="/Assets/bgvidmed.mp4" type="video/mp4">
+			</video>
+		</div>
+	</div>
+</div>
+<div class="caption-dashboard container mt-5">
   <div class="status-placeholder text-right">
     <h4>Status: {{perfectDay.status}}</h4>
   </div>
 
-  <h1>Edit Your Perfect Day: {{perfectDay.title}}</h1>
+  <h1 class="text-shadow">Edit Your Perfect Day: {{perfectDay.title}}</h1>
 
   <form id="editPerfectDayForm" method="POST" action="/perfect-day/{{id}}">
     <div class="form-group mb-4 text-center">
