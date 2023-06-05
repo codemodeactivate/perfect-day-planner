@@ -18,7 +18,8 @@ $(document).ready(function() {
         method: 'POST',
         data: {
           title: title,
-          description: description
+          description: description,
+          //guestKey: guestKey
         },
         success: function(response) {
           // Handle the success response

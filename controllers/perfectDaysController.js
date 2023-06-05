@@ -1,6 +1,6 @@
 //code to handle getall, findone, etc all that jazz
 const { PerfectDay, User, OptionSet } = require("../models");
-
+const { generateGuestKey } = require("../helpers/guestkey");
 const handlebars = require('handlebars');
 const path = require('path');
 const fs = require('fs');
@@ -46,6 +46,7 @@ module.exports = {
                 status: req.body.status || "In Progress",
                 // You may also want to add the user ID here, if "perfect days" are associated with users
                 user_id: req.session.user_id,
+                guestKey: generateGuestKey(),
             });
             res.status(201).json(day);
         } catch (error) {
