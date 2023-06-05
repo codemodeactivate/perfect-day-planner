@@ -16,7 +16,7 @@ router.get('/:id/view', controllers.perfectDayController.view)
 
 router.put('/:id/', controllers.perfectDayController.edit);
 router.get('/:id/view', controllers.perfectDayController.guestView)
-//router.get('/:id/edit', controllers.viewsController.renderPerfectDayEdit);
+router.get('/:id/edit', controllers.viewsController.renderPerfectDayEdit);
 
 router.get('/:id', controllers.perfectDayController.view);
 
