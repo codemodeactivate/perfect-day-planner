@@ -18,7 +18,8 @@ $(document).ready(function() {
         method: 'POST',
         data: {
           title: title,
-          description: description
+          description: description,
+          //guestKey: guestKey
         },
         success: function(response) {
           // Handle the success response
@@ -39,9 +40,10 @@ $(document).ready(function() {
     });
   });
 
+  const dayId = document.getElementById('previewBtn').getAttribute('data-day-id');
+  function showPreview(dayId, guestKey) {
+    console.log('showPreview called with dayId:', dayId, 'guestKey:', guestKey);
 
-  function showPreview() {
-    const dayId = document.getElementById('previewBtn').getAttribute('data-day-id');
     console.log(dayId);
     // Make a GET request to fetch the preview URL
     fetch(`/perfect-day/${dayId}`)
