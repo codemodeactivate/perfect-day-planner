@@ -56,7 +56,7 @@ const createOption = (number, optionData, index) => {
     option2Div.className += " col-lg-6";
 
     const optionPairLabel = document.createElement("h5");
-    optionPairLabel.innerText = `Option Pair ${optionIndex}`;
+    //optionPairLabel.innerText = `Option Pair ${optionIndex}`;
 
     optionPairDiv.appendChild(optionPairLabel);
     optionPairDiv.appendChild(option1Div);
@@ -155,15 +155,17 @@ const createOption = (number, optionData, index) => {
             const options = getOptionsData(); // Add this line to retrieve the options data
 
             const formData = new FormData(event.target);
+            console.log(event.log);
+            //console.log(formData.get("id"));
             const id = formData.get("id");
 
             const jsonData = {
               id,
               title: formData.get("title"),
               description: formData.get("description"),
-              options: options,
+              options
             };
-
+            console.log(options);
             const url = `/api/perfect-days/${id}`;
 
             try {
@@ -185,9 +187,11 @@ const createOption = (number, optionData, index) => {
             }
           });
 
-          editPerfectDayForm.addEventListener("submit", () => {
-            console.log("Form Data:", new FormData(editPerfectDayForm));
-          });
+          // editPerfectDayForm.addEventListener("submit", () => {
+          //   //console.log("Form Data:", new FormData(editPerfectDayForm));
+
+
+          // });
 
     }
 

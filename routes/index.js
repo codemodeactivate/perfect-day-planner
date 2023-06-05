@@ -19,7 +19,7 @@ const createPerfectDayRoutes = require('./api/perfect-days');
 router.get('/', homepageRoutes);
 router.use('/login', loginRoutes);
 router.use('/users', usersRoutes);
-//router.use('/perfectdays', perfectDaysRoutes);
+router.use('/perfectdays', perfectDaysRoutes);
 router.use('/optionsets', optionSetsRoutes);
 router.use('/selectedoptions', selectedOptionsRoutes);
 router.use('/signup', signupRoutes);
