@@ -1,5 +1,38 @@
 //code to handle getall, findone, etc all that jazz
 const { PerfectDay, User, OptionSet } = require("../models");
+
+const handlebars = require('handlebars');
+const path = require('path');
+const fs = require('fs');
+
+// // Custom Handlebars helper function to compare values
+// handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+//   switch (operator) {
+//     case '==':
+//       return v1 == v2 ? options.fn(this) : options.inverse(this);
+//     case '===':
+//       return v1 === v2 ? options.fn(this) : options.inverse(this);
+//     case '!=':
+//       return v1 != v2 ? options.fn(this) : options.inverse(this);
+//     case '!==':
+//       return v1 !== v2 ? options.fn(this) : options.inverse(this);
+//     case '<':
+//       return v1 < v2 ? options.fn(this) : options.inverse(this);
+//     case '<=':
+//       return v1 <= v2 ? options.fn(this) : options.inverse(this);
+//     case '>':
+//       return v1 > v2 ? options.fn(this) : options.inverse(this);
+//     case '>=':
+//       return v1 >= v2 ? options.fn(this) : options.inverse(this);
+//     case '&&':
+//       return v1 && v2 ? options.fn(this) : options.inverse(this);
+//     case '||':
+//       return v1 || v2 ? options.fn(this) : options.inverse(this);
+//     default:
+//       return options.inverse(this);
+//   }
+// });
+
 module.exports = {
     //create
     create: async (req, res, next) => {
@@ -19,82 +52,88 @@ module.exports = {
             res.status(500).json({ error: "Failed to create perfect day" });
         }
     },
+
     edit: async (req, res) => {
-        console.log(req.body);
-        console.log(req.body.options);
-        const id = req.params.id;
-        const { title, description, options } = req.body;
-        console.log("Options:", options);
-        try {
-            // Update perfect day
-            await PerfectDay.update(
-                { title, description },
-                { where: { id: id } }
-            ); //RIN - added :id to this line
+      console.log(req.body);
+      const id = req.params.id;
+      const { title, description, options } = req.body;
+      console.log("Options:", options);
 
-            if (options && options.length) {
-                // Assuming options is an array of {id, option1, option1_image, option2, option2_image} objects
-                for (let i = 0; i < options.length; i++) {
-                    const option = options[i];
-                    let optionSet = null; //RIN - initialize option set outside of if
-                    if (option.id) {
-                        optionSet = await OptionSet.findOne({
-                            where: { id: option.id },
-                        }); //RIN - put if statement in
-                    }
-                    //console.log("Option Set: " + OptionSet);
-                    if (optionSet) {
-                        await optionSet.update(option);
-                        console.log("Option Set:", optionSet);
-                    } else {
-                        // await OptionSet.create({
-                        //   option1: option.option1.text,
-                        //   option1_image: option.option1.image,
-                        //   option2: option.option2.text,
-                        //   option2_image: option.option2.image,
-                        //   perfect_day_id: id,
-                        // });
+      try {
+        // Update perfect day
+        await PerfectDay.update(
+          { title, description },
+          { where: { id } }
+        );
 
-                        // Ideal payload format
-                        await OptionSet.create({
-                            option1: option.option1,
-                            option1_image: option.option1_image,
-                            option2: option.option2,
-                            option2_image: option.option2_image,
-                            perfect_day_id: id,
-                        });
-                    }
-                }
+        if (options && options.length) {
+          for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            console.log("Option:", option);
+            let optionSet = null;
+
+            if (option.id) {
+              optionSet = await OptionSet.findOne({
+                where: { id: option.id },
+              });
             }
 
-            res.json({ message: "Perfect Day updated successfully." });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({
-                error: "An error occurred while updating Perfect Day.",
-            });
+            if (optionSet) {
+              await optionSet.update({
+                option1: option.option1.text || "",
+                option1_image: option.option1.image || "",
+                option2: option.option2.text || "",
+                option2_image: option.option2.image || "",
+              });
+              console.log("Option Set:", optionSet);
+            } else {
+              await OptionSet.create({
+                option1: option.option1.text || "",
+                option1_image: option.option1.image || "",
+                option2: option.option2.text || "",
+                option2_image: option.option2.image || "",
+                perfect_day_id: id,
+              });
+            }
+          }
         }
+
+        res.json({ message: "Perfect Day updated successfully." });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({
+          error: "An error occurred while updating Perfect Day.",
+        });
+      }
     },
+
 
     view: async (req, res, next) => {
         try {
-            const day = await PerfectDay.findOne({
-                where: {
-                    id: req.params.id,
-                },
-                include: [
-                    { model: User },
-                    {
-                        model: OptionSet,
-                        as: "options", // Both 'model' and 'as' properties are part of the same object.
-                    },
-                ],
-            });
-            console.log("June 1st: " + day);
-            res.status(200).json(day);
+          const day = await PerfectDay.findOne({
+            where: {
+              id: req.params.id,
+            },
+            include: [
+              { model: User },
+              {
+                model: OptionSet,
+                as: "options",
+              },
+            ],
+          });
+
+          if (!day) {
+            return res.status(404).json({ error: "Perfect Day not found" });
+          }
+
+          const { guestKey } = day;
+          day.guestKey = guestKey;
+          res.status(200).json({ day: day.toJSON()/*, guestKey */});
+          console.log("HI MATT:", day.toJSON());
         } catch (error) {
-            console.log(error); // <-- Log the error
-            res.status(500).json({ error: "Failed to view perfect day" });
+          console.log(error);
+          res.status(500).json({ error: "Failed to view perfect day" });
         }
     },
     delete: async (req, res, next) => {
@@ -120,5 +159,28 @@ module.exports = {
           res.status(500).json({ error: "Failed to delete Perfect Day" });
         }
       },
-
+      guestView: async (req, res, next) => {
+        try {
+          const guestKey = req.params.guestKey;
+          const perfectDayId = req.params.id;
+          const perfectDay = await PerfectDay.findByPk(perfectDayId, {
+              where: {
+                  guestKey: guestKey,
+              },
+              include: [
+                  {
+                      model: OptionSet,
+                      as: 'options',
+                    }
+                  ]
+              });
+              if (!perfectDay) {
+                  return res.status(404).json({ error: "Perfect Day not found" });
+              }
+              res.render('guest-view', { perfectDay });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ error: "Failed to view perfect day" });
+        }
+    },
 };
