@@ -189,12 +189,6 @@ const createOption = (number, optionData, index) => {
             console.log("Form Data:", new FormData(editPerfectDayForm));
           });
 
-
-
-
-
-
-
     }
 
   const url = new URL(window.location.href);
