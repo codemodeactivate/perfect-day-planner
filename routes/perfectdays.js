@@ -4,7 +4,7 @@ const router = express.Router();
 const controllers = require('../controllers');
 
 
-router.get('/:id/view', controllers.perfectDayController.guestView)
+router.get('/:id/view', controllers.perfectDayController.view)
 
 
 router.put('/:id', controllers.perfectDayController.edit);
