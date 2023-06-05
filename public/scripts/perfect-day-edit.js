@@ -68,8 +68,8 @@ const createOption = (number, optionData, index) => {
   };
 
 
-const updateFormFields = (data) => {
-    const day = data.day; // Access the 'day' object within the 'data' object
+  const updateFormFields = (data) => {
+    const day = data.day;
     const titleElement = document.getElementById("title");
     const descriptionElement = document.getElementById("dayDescription");
 
@@ -86,8 +86,34 @@ const updateFormFields = (data) => {
     }
 
     // Update other form fields if necessary
-  };
 
+    // Update options fields
+    const options = day.options;
+    const optionPairs = Array.from(document.querySelectorAll(".input-group"));
+
+    optionPairs.forEach((optionPair, index) => {
+      const option1TextElement = optionPair.querySelector(`input[id='dayOption${index}option1']`);
+      const option1ImageElement = optionPair.querySelector(`input[id='dayOption${index}Img1']`);
+      const option2TextElement = optionPair.querySelector(`input[id='dayOption${index}option2']`);
+      const option2ImageElement = optionPair.querySelector(`input[id='dayOption${index}Img2']`);
+
+      if (option1TextElement) {
+        option1TextElement.value = options[index]?.option1?.text || "";
+      }
+
+      if (option1ImageElement) {
+        option1ImageElement.value = options[index]?.option1?.image || "";
+      }
+
+      if (option2TextElement) {
+        option2TextElement.value = options[index]?.option2?.text || "";
+      }
+
+      if (option2ImageElement) {
+        option2ImageElement.value = options[index]?.option2?.image || "";
+      }
+    });
+  };
 
   window.onload = async function () {
     console.log("Window loaded");

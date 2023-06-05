@@ -41,10 +41,13 @@ module.exports = {
     },
     renderPerfectDayEdit: async (req, res) => {
       try {
+      const id = req.params.id;
+      const { title, description, options } = req.body;
         // Fetch the perfect day from your database
         const perfectDay = await PerfectDay.findOne({
           where: {
-            id: req.params.id
+            id: req.params.id,
+            //option: options.id
           },
           include: [
             {
