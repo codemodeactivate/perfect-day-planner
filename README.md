@@ -19,7 +19,9 @@
   ![Screenshot](/public/Assets/img/screenshot.png)
 
     ```
-     To install locally, clone the repo and run `npm install` to install dependencies. Then run `npm start` to start the server. You will need to create a `.env` file with the following variables:
+     To install locally, clone the repo and run `npm install` to install dependencies.
+     Then run `npm start` to start the server. You will need to create a `.env` file
+      with the following variables:
 
     DB_NAME='perfect_day_db'
     DB_USER='yourdbusername'
