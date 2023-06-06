@@ -9,27 +9,29 @@
   <div class="option-container">
     {{#each perfectDay.options}}
       <div class="card-container option-pick" data-option-id="{{this.id}}" data-option-value="2">
-        <div class="flip-card">
+        <div class="flip-card" id="flip-card1-{{@index}}">
           <div class="cardFront">
-            <h3>Placeholder</h3>
+            <h3>
+              <img src="{{this.option1_image}}"/>
+            </h3>
           </div>
           <div class="cardBack">
             <div class="option">
               <h3>{{this.option1}}</h3>
-              <!--<img src="{{this.option1_image}}"/>-->
             </div>
           </div>
         </div>
       </div>
-      <div class="card-container option-pick" data-option-id="{{this.id}}" data-option-value="2">
+      <div class="card-container">
         <div class="flip-card">
           <div class="cardFront">
-            <h3>Placeholder</h3>
+            <h3>
+              <img src="{{this.option2_image}}"/>
+            </h3>
           </div>
           <div class="cardBack">
             <div class="option">
               <h3>{{this.option2}}</h3>
-              <!--<img src="{{this.option2_image}}"/>-->
             </div>
           </div>
         </div>
