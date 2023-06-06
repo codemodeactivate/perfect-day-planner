@@ -46,6 +46,7 @@ button {
   justify-content: center;
   align-items: center;
   backface-visibility: hidden;
+  overflow: hidden;
 }
 
 .cardFront {
