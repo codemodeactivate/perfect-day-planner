@@ -14,6 +14,7 @@ const homepageRoutes = require('./homepage');
 const dashboardRoutes = require('./dashboard');
 const logoutRoutes = require('./logout');
 const createPerfectDayRoutes = require('./api/perfect-days');
+const emailCaptureRoutes = require('./emailCapture');
 
 // Define routes
 router.use('/perfect-day', perfectDaysRoutes);
@@ -26,7 +27,7 @@ router.use('/selectedoptions', selectedOptionsRoutes);
 router.use('/signup', signupRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/logout', logoutRoutes);
-
+router.use('/emailCapture', emailCaptureRoutes);
 
 
 router.use('/api/perfect-days', createPerfectDayRoutes);

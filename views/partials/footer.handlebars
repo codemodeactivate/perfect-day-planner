@@ -8,10 +8,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <h5 style="color: #fff;">Stay Connected</h5>
-                        <form>
+                        <form action="/emailCapture/subscribe" method="POST">
                             <div class="mb-3">
                                 <label for="emailInput" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="emailInput" placeholder="Enter your email">
+                                <input type="email" class="form-control" id="emailInput" name="email" placeholder="Enter your email">
+
                             </div>
                             <button type="submit" class="btn btn-primary">Subscribe</button>
                         </form>

@@ -1,3 +1,4 @@
+const emailCaptureController = require('./emailCaptureController');
 
 
 //controllers index
@@ -7,6 +8,7 @@ module.exports = {
     optionSetController: require('./optionSetsController'),
     selectedOptionController: require('./selectedOptionsController'),
     viewsController: require('./viewsController'),
-    authController: require('./authController')
-    
+    authController: require('./authController'),
+    emailCaptureController: require('./emailCaptureController')
+
 };
