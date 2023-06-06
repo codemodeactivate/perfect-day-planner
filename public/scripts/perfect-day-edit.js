@@ -53,9 +53,10 @@ const createOption = (number, optionData, index) => {
     optionPairDiv.className = "mb-5 option-pair row";
 
     const optionIndex = optionsContainer.children.length;
-    const option1Div = createOption(1, optionData ? optionData.option1 : null, optionIndex);
-    const option2Div = createOption(2, optionData ? optionData.option2 : null, optionIndex);
-
+    // const option1Div = createOption(1, optionData ? optionData.option1 : null, optionIndex);
+    // const option2Div = createOption(2, optionData ? optionData.option2 : null, optionIndex);
+    const option1Div = createOption(1, optionData ? optionData.option1 : null, optionPairCount);
+    const option2Div = createOption(2, optionData ? optionData.option2 : null, optionPairCount);
     option1Div.className += " col-lg-6";
     option2Div.className += " col-lg-6";
 
@@ -67,13 +68,14 @@ const createOption = (number, optionData, index) => {
     optionPairDiv.appendChild(option2Div);
 
     optionsContainer.appendChild(optionPairDiv);
-
+    optionPairCount++;
     return [option1Div, option2Div];
   };
 
 
   const updateFormFields = (data) => {
     const day = data.day;
+    console.log(data);
     const titleElement = document.getElementById("title");
     const descriptionElement = document.getElementById("dayDescription");
 
@@ -126,11 +128,15 @@ const createOption = (number, optionData, index) => {
         const optionPairs = Array.from(document.querySelectorAll(".option-pair"));
 
         return optionPairs.map((optionPair, index) => {
+
           const option1TextElement = optionPair.querySelector(`textarea[name="options[${index}].option1.text"]`);
           const option1ImageElement = optionPair.querySelector(`input[name="options[${index}].option1.image"]`);
           const option2TextElement = optionPair.querySelector(`textarea[name="options[${index}].option2.text"]`);
           const option2ImageElement = optionPair.querySelector(`input[name="options[${index}].option2.image"]`);
           const optionIdElement = optionPair.querySelector(`input[name="options[${index}].id"]`);
+          console.log("Get Options", {option1TextElement});
+          console.log("INDEX", {index});
+          //the index doesn't start at the proper number when the window is reloaded.
 
           return {
             id: optionIdElement ? optionIdElement.value : null,
@@ -141,7 +147,9 @@ const createOption = (number, optionData, index) => {
             option2: {
               text: option2TextElement ? option2TextElement.value : "",
               image: option2ImageElement ? option2ImageElement.value : "",
+
             },
+
           };
         });
       }
@@ -157,9 +165,10 @@ const createOption = (number, optionData, index) => {
             event.preventDefault();
 
             const options = getOptionsData(); // Add this line to retrieve the options data
-
+            //console.log(optionsPair);
+            console.log(options);
             const formData = new FormData(event.target);
-            console.log(event.log);
+            //console.log(event.log);
             //console.log(formData.get("id"));
             const id = perfectDayId;
 
@@ -171,7 +180,7 @@ const createOption = (number, optionData, index) => {
               description: formData.get("description"),
               options
             };
-            console.log(options);
+            console.log("JSON", jsonData);
             const url = `/api/perfect-days/${id}`;
 
             try {
@@ -224,6 +233,7 @@ const createOption = (number, optionData, index) => {
 
   if (perfectDay.options) {
     console.log("Adding option:", optionData);
+    optionPairCount = perfectDay.options.length;
     for (let option of perfectDay.options) {
       addOption(option, optionsContainer);
     }

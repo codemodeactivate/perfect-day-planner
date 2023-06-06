@@ -7,6 +7,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  padding-top: 4rem;
 }
 
 button {
@@ -123,20 +124,18 @@ header.scrolled {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-body {
-  padding-bottom: 80px;
-}
+
 
 main {
-  flex: 1;
-  margin-bottom: 380px;
+  flex: 1 0 auto;
+
 }
 
 footer {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 20px 0;
   color: #fff;
-  position: fixed;
+
   bottom: 0;
   width: 100%;
 }
@@ -200,9 +199,7 @@ header.scrolled {
   background-color: rgba(0, 0, 0, 0.9);
 }
 
-body {
-  padding-top: 4rem;
-}
+
 
 .navbar-nav .nav-item {
   padding: 10px;
