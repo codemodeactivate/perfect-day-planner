@@ -90,12 +90,12 @@ module.exports = {
             },
             include: PerfectDay
           });
-          
+
           const perfectDays = user ? user.perfect_days : [];
 
-          console.log('USER:', user);
-          console.log('Perfect Days:', perfectDays);
-          console.log('TYPEOF: ' + typeof perfectDays);
+          // console.log('USER:', user);
+          // console.log('Perfect Days:', perfectDays);
+          // console.log('TYPEOF: ' + typeof perfectDays);
 
           res.render('dashboard', { user: user.toJSON(), logged_in: req.session.logged_in, perfectDays });
         } catch (err) {

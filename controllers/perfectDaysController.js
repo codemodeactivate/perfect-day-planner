@@ -37,9 +37,9 @@ module.exports = {
     //create
     create: async (req, res, next) => {
         try {
-            console.log("------------------------------------");
-            console.log("REQ SESSION IS: " + req.body);
-            console.log("------------------------------------");
+            // console.log("------------------------------------");
+            // console.log("REQ SESSION IS: " + req.body);
+            // console.log("------------------------------------");
             const day = await PerfectDay.create({
                 title: req.body.title,
                 description: req.body.description,
@@ -55,10 +55,10 @@ module.exports = {
     },
 
     edit: async (req, res) => {
-      console.log(req.body);
+      // console.log(req.body);
       const id = req.params.id;
       const { title, description, options } = req.body;
-      console.log("Options:", options);
+      // console.log("Options:", options);
 
       try {
         // Update perfect day
@@ -70,7 +70,7 @@ module.exports = {
         if (options && options.length) {
           for (let i = 0; i < options.length; i++) {
             const option = options[i];
-            console.log("Option:", option);
+            // console.log("Option:", option);
             let optionSet = null;
 
             if (option.id) {
@@ -86,7 +86,7 @@ module.exports = {
                 option2: option.option2.text || "",
                 option2_image: option.option2.image || "",
               });
-              console.log("Option Set:", optionSet);
+              // console.log("Option Set:", optionSet);
             } else {
               await OptionSet.create({
                 option1: option.option1.text || "",
@@ -161,7 +161,7 @@ module.exports = {
         try {
           const { guestKey } = req.params;
 
-          console.log('Guest Key:', guestKey);
+          //console.log('Guest Key:', guestKey);
 
           const perfectDay = await PerfectDay.findOne({
             where: {
@@ -175,10 +175,10 @@ module.exports = {
             ],
           });
 
-          console.log('Perfect Day:', perfectDay);
+          // console.log('Perfect Day:', perfectDay);
 
           if (!perfectDay) {
-            console.log('Perfect Day not found');
+            // console.log('Perfect Day not found');
             return res.status(404).json({ error: "Perfect Day not found" });
           }
 

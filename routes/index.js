@@ -15,6 +15,8 @@ const dashboardRoutes = require('./dashboard');
 const logoutRoutes = require('./logout');
 const createPerfectDayRoutes = require('./api/perfect-days');
 const emailCaptureRoutes = require('./emailCapture');
+const captureOptionRoutes = require('./api/selected-option');
+const captureOption = controllers.optionSetController.captureOption;
 
 // Define routes
 router.use('/perfect-day', perfectDaysRoutes);
@@ -28,10 +30,10 @@ router.use('/signup', signupRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/logout', logoutRoutes);
 router.use('/emailCapture', emailCaptureRoutes);
-
+router.use('/api/selected-option.js', captureOptionRoutes)
 
 router.use('/api/perfect-days', createPerfectDayRoutes);
-
+router.post('/api/selected-option', captureOption);
 //router.use('/signup', signupRoutes);
 
 module.exports = router;

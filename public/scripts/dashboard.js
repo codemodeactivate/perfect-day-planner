@@ -23,7 +23,7 @@ $(document).ready(function() {
         },
         success: function(response) {
           // Handle the success response
-          console.log('New Perfect-Day created:', response);
+          // console.log('New Perfect-Day created:', response);
 
           // Close the modal
           $('#newDayModal').modal('hide');
@@ -42,17 +42,17 @@ $(document).ready(function() {
 
   const dayId = document.getElementById('previewBtn').getAttribute('data-day-id');
   function showPreview(dayId, guestKey) {
-    console.log('showPreview called with dayId:', dayId, 'guestKey:', guestKey);
+    // console.log('showPreview called with dayId:', dayId, 'guestKey:', guestKey);
 
-    console.log(dayId);
+    // console.log(dayId);
     // Make a GET request to fetch the preview URL
     fetch(`/perfect-day/${dayId}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         const guestKey = data.guestKey; // Extract the guestKey from the response JSON
         const previewUrl = `${window.location.origin}/perfect-day/${guestKey}/view`; // Use the extracted guestKey
-        console.log('Preview URL:', previewUrl);
+        // console.log('Preview URL:', previewUrl);
         //perfect-day/key/view
         // Update the URL display in your HTML
         const previewUrlElement = document.getElementById('previewUrl');

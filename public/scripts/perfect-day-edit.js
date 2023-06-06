@@ -75,7 +75,7 @@ const createOption = (number, optionData, index) => {
 
   const updateFormFields = (data) => {
     const day = data.day;
-    console.log(data);
+    // console.log(data);
     const titleElement = document.getElementById("title");
     const descriptionElement = document.getElementById("dayDescription");
 
@@ -122,7 +122,7 @@ const createOption = (number, optionData, index) => {
   };
 
   window.onload = async function () {
-    console.log("Window loaded");
+    // console.log("Window loaded");
     const editPerfectDayForm = document.querySelector("#editPerfectDayForm");
     function getOptionsData() {
         const optionPairs = Array.from(document.querySelectorAll(".option-pair"));
@@ -134,8 +134,8 @@ const createOption = (number, optionData, index) => {
           const option2TextElement = optionPair.querySelector(`textarea[name="options[${index}].option2.text"]`);
           const option2ImageElement = optionPair.querySelector(`input[name="options[${index}].option2.image"]`);
           const optionIdElement = optionPair.querySelector(`input[name="options[${index}].id"]`);
-          console.log("Get Options", {option1TextElement});
-          console.log("INDEX", {index});
+          // console.log("Get Options", {option1TextElement});
+          // console.log("INDEX", {index});
           //the index doesn't start at the proper number when the window is reloaded.
 
           return {
@@ -166,7 +166,7 @@ const createOption = (number, optionData, index) => {
 
             const options = getOptionsData(); // Add this line to retrieve the options data
             //console.log(optionsPair);
-            console.log(options);
+            // console.log(options);
             const formData = new FormData(event.target);
             //console.log(event.log);
             //console.log(formData.get("id"));
@@ -220,9 +220,9 @@ const createOption = (number, optionData, index) => {
   }
 
   const response = await fetch(`/api/perfect-days/${perfectDayId}`);
-    console.log("Response:", response);
+    // console.log("Response:", response);
     perfectDay = await response.json();
-    console.log("Perfect Day:", perfectDay);
+    // console.log("Perfect Day:", perfectDay);
     const optionsContainer = document.getElementById("optionsContainer");
 
   if (!optionsContainer) {
@@ -232,7 +232,7 @@ const createOption = (number, optionData, index) => {
 
 
   if (perfectDay.options) {
-    console.log("Adding option:", optionData);
+    // console.log("Adding option:", optionData);
     optionPairCount = perfectDay.options.length;
     for (let option of perfectDay.options) {
       addOption(option, optionsContainer);
@@ -242,7 +242,7 @@ const createOption = (number, optionData, index) => {
 
   const addOptionButton = document.getElementById("addOptionButton");
   addOptionButton.addEventListener("click", () => {
-    console.log("Add option button clicked");
+    // console.log("Add option button clicked");
     addOption(null,optionsContainer);
     //optionPairCount++;
   });
