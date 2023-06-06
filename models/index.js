@@ -1,6 +1,7 @@
 const OptionSet = require('./OptionSets');
 const PerfectDay = require('./PerfectDays');
 const SelectedOption = require('./SelectedOptions');
+const Subscriber = require ('./Subscriber');
 const User = require('./Users');
 const Sequelize = require('sequelize');
 
@@ -41,5 +42,6 @@ module.exports = {
     User,
     PerfectDay,
     OptionSet,
-    SelectedOption
+    SelectedOption,
+    Subscriber
 };
