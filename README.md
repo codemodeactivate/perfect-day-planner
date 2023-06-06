@@ -30,6 +30,21 @@
     num run seed
     npm run start
     ```
+  ## Tech Stack
+[![Anime.js](https://img.shields.io/badge/Anime.js-3.2.1-blue)](https://animejs.com/)
+[![bcrypt](https://img.shields.io/badge/bcrypt-5.1.0-blue)](https://www.npmjs.com/package/bcrypt)
+[![Connect-session-sequelize](https://img.shields.io/badge/Connect--session--sequelize-7.1.7-blue)](https://www.npmjs.com/package/connect-session-sequelize)
+[![CORS](https://img.shields.io/badge/CORS-2.8.5-blue)](https://www.npmjs.com/package/cors)
+[![Dotenv](https://img.shields.io/badge/Dotenv-16.0.3-blue)](https://www.npmjs.com/package/dotenv)
+[![Express](https://img.shields.io/badge/Express-4.18.2-blue)](https://expressjs.com/)
+[![Express-handlebars](https://img.shields.io/badge/Express--handlebars-7.0.7-blue)](https://www.npmjs.com/package/express-handlebars)
+[![Express-session](https://img.shields.io/badge/Express--session-1.17.3-blue)](https://www.npmjs.com/package/express-session)
+[![Faker](https://img.shields.io/badge/Faker-5.5.3-blue)](https://www.npmjs.com/package/faker)
+[![Mysql2](https://img.shields.io/badge/Mysql2-3.3.2-blue)](https://www.npmjs.com/package/mysql2)
+[![Nodemon](https://img.shields.io/badge/Nodemon-2.0.22-blue)](https://www.npmjs.com/package/nodemon)
+[![Sequelize](https://img.shields.io/badge/Sequelize-6.31.1-blue)](https://sequelize.org/)
+[![UUID](https://img.shields.io/badge/UUID-9.0.0-blue)](https://www.npmjs.com/package/uuid)
+[![zxcvbn](https://img.shields.io/badge/zxcvbn-4.4.2-blue)](https://www.npmjs.com/package/zxcvbn)
 
   ## Usage
   Feel free to use but drop a plug
@@ -60,4 +75,9 @@
   - Google or some other authentication service
 
   ## Credits
-  [Jeff Zenko](https://github.com/codemodeactivate), [Christopher Schmidt](https://github.com/cschmidt216), [James Ivancic](https://github.com/thejamesdouglas), https://dmitripavlutin.com/javascript-fetch-async-await/
+  [Jeff Zenko](https://github.com/codemodeactivate), [Christopher Schmidt](https://github.com/cschmidt216), [James Ivancic](https://github.com/thejamesdouglas)
+
+ ## Tutorials Used
+ https://dmitripavlutin.com/javascript-fetch-async-await/
+
+ https://stackoverflow.com/questions/8853396/logical-operator-in-a-handlebars-js-if-conditional
