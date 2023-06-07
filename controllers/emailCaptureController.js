@@ -5,7 +5,7 @@ module.exports = {
     captureEmail: async (req, res) => {
         // capture email from form
         console.log('Received POST to /sub');
-        console.log('REQ Body: ', req.body);
+        // console.log('REQ Body: ', req.body);
 
         const email = req.body.email;
 

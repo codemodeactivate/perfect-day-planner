@@ -36,7 +36,7 @@ module.exports = {
     //signup
     signup: async (req, res, next) => {
         try {
-            console.log(req.body);
+            //console.log(req.body);
 
             // Check if passwords match
             if (req.body.password !== req.body.confirmPassword) {

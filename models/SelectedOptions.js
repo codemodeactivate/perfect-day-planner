@@ -5,7 +5,10 @@ class SelectedOption extends Model {}
 
 SelectedOption.init(
     {
-        SelectedOption: DataTypes.STRING, // Fix the column name here
+        selectedOption: {
+            type: DataTypes.ENUM('selected', 'unselected', 'indeterminate'),
+            defaultValue: 'unselected'
+        },
         option_set_id: {
             type: DataTypes.INTEGER,
             references: {

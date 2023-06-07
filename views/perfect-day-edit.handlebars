@@ -7,7 +7,8 @@
 		</div>
 	</div>
 </div>
-<div class="caption-dashboard container mt-5">
+<div class="caption-dashboard">
+<div class="container mt-xl-5">
   <div class="status-placeholder text-right">
     <h4>Status: {{perfectDay.status}}</h4>
   </div>
@@ -23,35 +24,44 @@
       <textarea class="form-control" id="dayDescription" name="description" placeholder="Description">{{perfectDay.description}}</textarea>
     </div>
 
-  <div id="optionsContainer" class="form-group mb-4 text-center">
+
+<div id="optionsContainer" class="form-group mb-4">
+
 {{#each perfectDay.options as |option index|}}
   <div class="input-group mb-3">
-    <input type="text" class="form-control" id="dayOption{{index}}option1" name="options[{{index}}].option1.text" value="{{option.option1}}" placeholder="{{option.option1}}">
-    <input type="text" class="form-control" id="dayOption{{index}}Img1" name="options[{{index}}].option1.image" value="{{option.option1_image}}" placeholder="Option 1 Image URL">
-    <input type="text" class="form-control" id="dayOption{{index}}option2" name="options[{{index}}].option2.text" value="{{option.option2}}" placeholder="{{option.option2}}">
-    <input type="text" class="form-control" id="dayOption{{index}}Img2" name="options[{{index}}].option2.image" value="{{option.option2_image}}" placeholder="Option 2 Image URL">
+    <input type="text" class="form-control {{#if option.isSelected}}selected-option{{else}}unselected-option{{/if}}" id="dayOption{{index}}option1" name="options[{{index}}].option1.text" value="{{option.option1}}" placeholder="{{option.option1}}">
+    <input type="text" class="form-control {{#if option.isSelected}}selected-option{{else}}unselected-option{{/if}}" id="dayOption{{index}}Img1" name="options[{{index}}].option1.image" value="{{option.option1_image}}" placeholder="Option 1 Image URL">
+    <input type="text" class="form-control {{#if option.isSelected}}selected-option{{else}}unselected-option{{/if}}" id="dayOption{{index}}option2" name="options[{{index}}].option2.text" value="{{option.option2}}" placeholder="{{option.option2}}">
+    <input type="text" class="form-control {{#if option.isSelected}}selected-option{{else}}unselected-option{{/if}}" id="dayOption{{index}}Img2" name="options[{{index}}].option2.image" value="{{option.option2_image}}" placeholder="Option 2 Image URL">
     <input type="hidden" name="options[{{index}}].id" value="{{option.id}}">
-
   </div>
 {{/each}}
 
+</div>
 
 
 
 
-  </div>
+
+
+
+
+
+
+
+
 
     <button id="addOptionButton" type="button" class="btn btn-secondary mb-4">Add New Option</button>
 
     <div class="d-flex justify-content-between">
-      <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+      <button type="submit" class="btn btn-primary btn-lg mb-5">Save Changes</button>
       <a href="/perfect-day/{{perfectDay.id}}/delete" class="btn btn-danger btn-lg">
         <i class="fas fa-trash-alt"></i> Delete Perfect Day
       </a>
     </div>
   </form>
 </div>
-
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

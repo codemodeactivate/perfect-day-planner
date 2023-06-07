@@ -8,7 +8,7 @@
 <body>
   <div class="option-container">
     {{#each perfectDay.options}}
-      <div class="card-container">
+      <div class="card-container option-pick" data-option-id="{{this.id}}" data-option-value="{{this.option1}}">
         <div class="flip-card" id="flip-card1-{{@index}}">
           <div class="cardFront">
             <h3>
@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="card-container">
+      <div class="card-container option-pick" data-option-id="{{this.id}}" data-option-value="{{this.option2}}">
         <div class="flip-card" id="flip-card2-{{@index}}">
           <div class="cardFront">
             <h3>
