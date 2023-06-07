@@ -25,10 +25,11 @@ const saveSelectedOption = (optionId, optionValue) => {
         },
         body: JSON.stringify({
             option_set_id: optionId,
-            SelectedOption: optionValue
+            selectedOption: optionValue
         })
     })
     .then ( res => res.json())
+
     .then (data => {
         console.log(data);
     })
