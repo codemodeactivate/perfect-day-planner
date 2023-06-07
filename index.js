@@ -3,7 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./routes');
-//const helpers = require('./helpers');
 const fs = require('fs');
 const cors = require('cors');
 const sequelize = require('./config/connection');
@@ -16,7 +15,11 @@ const PORT = process.env.PORT || 3001;
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({
   defaultLayout: 'main',
-  //helpers: helpers,
+  helpers: {
+    isSelected: function (selectedOption) {
+      return selectedOption === 'selected';
+    },
+  },
   partialsDir: path.join(__dirname, 'views/partials'),
   layoutsDir: path.join(__dirname, 'views/layouts')
 });
@@ -42,15 +45,12 @@ app.use(session(sess));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
-
 app.use(cors());
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-
   res.locals.headerClass = req.url !== '/' ? 'scrolled' : '';
   next();
 });

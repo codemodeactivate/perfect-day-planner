@@ -16,27 +16,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }, 250);  // Adjust this delay as necessaryc
 });
 
-
 const saveSelectedOption = (optionId, optionValue) => {
-    fetch('/api/selected-option', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            option_set_id: optionId,
-            selectedOption: optionValue
-        })
-    })
-    .then ( res => res.json())
+    let selectedOption;
 
-    .then (data => {
-        console.log(data);
+    if (optionValue === 'unselected') {
+      selectedOption = null;
+    } else if (optionValue === 'selected') {
+      selectedOption = optionValue;
+    }
+
+    fetch('/api/selected-option', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        option_set_id: optionId,
+        selectedOption: selectedOption
+      })
     })
-    .catch (error => {
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
         console.log('Error:', error);
-    });
-};
+      });
+  };
 
 
 

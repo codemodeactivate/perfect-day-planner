@@ -5,6 +5,49 @@ const url = new URL(window.location.href);
 const perfectDayId = url.pathname.split("/").slice(-2, -1)[0]; // Assuming the ID is the second-to-last segment in the URL
 
 
+//trying to get a visual status of whether the option is done or not but couldn't figure this out in time.
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Number of options:", perfectDay.options.length);
+  perfectDay.options.forEach(option => {
+    console.log("Option ID:", option.id);
+    console.log("Option:", option);
+    const option1Input = document.querySelector(`#dayOption${option.id}option1`);
+    const option2Input = document.querySelector(`#dayOption${option.id}option2`);
+
+    console.log("Option 1 Input:", option1Input);
+    console.log("Option 2 Input:", option2Input);
+
+    if (option1Input) {
+      const parentDiv = option1Input.parentElement;
+      console.log("Selected Option:", option.selected_option?.SelectedOption);
+      console.log("Option 1 Value:", option.option1);
+
+      if (option.selected_option && option.selected_option.SelectedOption === option.option1) {
+        console.log(`Option 1 is selected for Option ${option.id}`);
+        parentDiv.classList.add("selected-option");
+      } else {
+        parentDiv.classList.remove("selected-option");
+      }
+    }
+
+    if (option2Input) {
+      const parentDiv = option2Input.parentElement;
+      console.log("Selected Option:", option.selected_option?.SelectedOption);
+      console.log("Option 2 Value:", option.option2);
+
+      if (option.selected_option && option.selected_option.SelectedOption === option.option2) {
+        console.log(`Option 2 is selected for Option ${option.id}`);
+        parentDiv.classList.add("selected-option");
+      } else {
+        parentDiv.classList.remove("selected-option");
+      }
+    }
+  });
+});
+
+
 const createOption = (number, optionData, index) => {
     const optionDiv = document.createElement("div");
     optionDiv.className = "mb-3 option-input";
@@ -51,7 +94,7 @@ const createOption = (number, optionData, index) => {
   const addOption = (optionData, optionsContainer) => {
     const optionPairDiv = document.createElement("div");
     optionPairDiv.className = "mb-5 option-pair row";
-
+    optionPairDiv.style.marginBottom = "20px"; // Add a margin-bottom style
     const optionIndex = optionsContainer.children.length;
     // const option1Div = createOption(1, optionData ? optionData.option1 : null, optionIndex);
     // const option2Div = createOption(2, optionData ? optionData.option2 : null, optionIndex);
@@ -90,6 +133,20 @@ const createOption = (number, optionData, index) => {
     } else {
       console.error("Description element not found");
     }
+    // console.log(day);
+    // console.log("DAY", { day });
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Update other form fields if necessary
 
@@ -119,7 +176,7 @@ const createOption = (number, optionData, index) => {
         option2ImageElement.value = options[index]?.option2?.image || "";
       }
     });
-  };
+  }
 
   window.onload = async function () {
     // console.log("Window loaded");
@@ -224,7 +281,7 @@ const createOption = (number, optionData, index) => {
     perfectDay = await response.json();
     // console.log("Perfect Day:", perfectDay);
     const optionsContainer = document.getElementById("optionsContainer");
-
+    updateFormFields(perfectDay);
   if (!optionsContainer) {
     console.error("Options container not found.");
     return;
@@ -248,7 +305,7 @@ const createOption = (number, optionData, index) => {
   });
 
 
-  updateFormFields(perfectDay);
+
 
 
 };

@@ -16,12 +16,16 @@ const seedSelectedOptions = async (numCategories = 10) => {
     const randomOption = faker.random.arrayElement([randomOptionSet.option1, randomOptionSet.option2]);
 
     const selectedOptions = {
-      SelectedOption: randomOption, // Corrected column name to match the model definition
+      SelectedOption: randomOption,
       option_set_id: randomOptionSet.id
     };
     selectedOptionsData.push(selectedOptions);
   }
 
+  // Delete all existing selected options
+  await SelectedOption.destroy({ truncate: true });
+
+  // Create new selected options
   await SelectedOption.bulkCreate(selectedOptionsData);
 };
 

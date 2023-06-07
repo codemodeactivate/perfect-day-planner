@@ -378,3 +378,14 @@ header.scrolled {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+
+.selected-option {
+  background-color: green;
+}
+
+.unselected-option {
+  background-color: red;
+}
+
+

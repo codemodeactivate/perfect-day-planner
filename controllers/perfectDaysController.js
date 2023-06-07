@@ -1,5 +1,5 @@
 //code to handle getall, findone, etc all that jazz
-const { PerfectDay, User, OptionSet } = require("../models");
+const { PerfectDay, User, OptionSet, SelectedOption } = require("../models");
 const { generateGuestKey } = require("../helpers/guestkey");
 const handlebars = require('handlebars');
 const path = require('path');
@@ -117,6 +117,9 @@ module.exports = {
             {
               model: OptionSet,
               as: "options",
+              include: [
+                SelectedOption
+              ]
             },
           ],
         });
@@ -135,28 +138,43 @@ module.exports = {
 
 
     delete: async (req, res, next) => {
-        try {
-          // Find associated OptionSet records and delete them
-          const optionSets = await OptionSet.findAll({
+      try {
+        // Find associated OptionSet records and delete their associated SelectedOption records first
+        const optionSets = await OptionSet.findAll({
+          where: {
+            perfect_day_id: req.params.id,
+          },
+        });
+
+        for (let optionSet of optionSets) {
+          await SelectedOption.destroy({
             where: {
-              perfect_day_id: req.params.id,
+              option_set_id: optionSet.id,
             },
           });
-          for (let optionSet of optionSets) {
-            await optionSet.destroy();
-          }
-          // Then delete the PerfectDay
-          await PerfectDay.destroy({
-            where: {
-              id: req.params.id,
-            },
-          });
-          res.redirect("/dashboard");
-        } catch (error) {
-          console.log(error);
-          res.status(500).json({ error: "Failed to delete Perfect Day" });
         }
-      },
+
+        // Then delete the OptionSet records
+        await OptionSet.destroy({
+          where: {
+            perfect_day_id: req.params.id,
+          },
+        });
+
+        // Finally, delete the PerfectDay record
+        await PerfectDay.destroy({
+          where: {
+            id: req.params.id,
+          },
+        });
+
+        res.redirect("/dashboard");
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Failed to delete Perfect Day" });
+      }
+    },
+
       guestView: async (req, res, next) => {
         try {
           const { guestKey } = req.params;
