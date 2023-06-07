@@ -15,7 +15,7 @@
   ## Description
   Use this to help plan the perfect day with your significant other!
   ## Installation
-  [Live Link Here](https://perfect-day-planner.herokuapp.com/)
+  [Live Link Here](https://perfect-day.herokuapp.com/)
   ![Screenshot](/public/Assets/img/screenshot.png)
 
     ```
